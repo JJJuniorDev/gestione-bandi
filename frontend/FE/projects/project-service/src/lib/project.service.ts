@@ -11,6 +11,11 @@ private apiURL= environment.api.project;
 constructor(private http: HttpClient) {}
 
 getAllProjects(){
+    console.log("INVIO RICHIESTA A "+this.apiURL+"/projects");
     return this.http.get<ProjectDTO[]>(`${this.apiURL}/projects`);
+}
+
+getProjectsByUserId(userId: string) {
+return this.http.get<ProjectDTO[]>(`${this.apiURL}/projects/user/${userId}`);
 }
 }

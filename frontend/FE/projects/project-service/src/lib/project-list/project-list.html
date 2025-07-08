@@ -2,7 +2,7 @@
 <div>
   <h2>Projects</h2>
 <ul>
-    @for (project of projects; track project.id) {
+    @for (project of projects(); track project.id) {
         <li>
           TITOLO:  {{ project.title }} 
         </li>
@@ -18,4 +18,5 @@
     } @empty {
         <li>Nessun progetto trovato.</li>
     }
+    
 </ul>
