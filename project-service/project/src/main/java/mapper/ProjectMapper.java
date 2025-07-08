@@ -1,8 +1,11 @@
 package mapper;
 
-import dto.ProjectDTO;
-import Entity.Project;
+import org.springframework.stereotype.Component;
 
+import Entity.Project;
+import dto.ProjectDTO;
+
+@Component
 public class ProjectMapper {
 
     public static ProjectDTO toDTO(Project project) {

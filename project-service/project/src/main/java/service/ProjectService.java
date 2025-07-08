@@ -39,5 +39,16 @@ public class ProjectService {
 		ProjectDTO progettoToDTO= mapper.toDTO(progettoTrovato);
 		return progettoToDTO;
 	}
+
+	public List<ProjectDTO> getProjectByUserId(String userId) {
+		Long idConverted= Long.valueOf(userId);
+		Optional<List<Project>> progettiTrovatiOptional= projectRepo.findAllByUserId(idConverted);
+		List<Project> progetti=progettiTrovatiOptional.get();
+		List<ProjectDTO> progettiToDTO= progetti
+				.stream()
+				.map(progetto -> mapper.toDTO(progetto))
+				.collect(Collectors.toList());
+		return progettiToDTO;
+	}
 	
 }

@@ -12,7 +12,7 @@ import dto.ProjectDTO;
 import service.ProjectService;
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/api/projects")
 public class ProjectController {
 
 	@Autowired
@@ -28,4 +28,9 @@ public class ProjectController {
 	public ProjectDTO getProjectById(@PathVariable String id) {
 	return projectServ.getProjectById(id);
 }
+	
+	@GetMapping("/user/{userId}")
+	public List<ProjectDTO> getProjectByUserId(@PathVariable String userId) {
+		return projectServ.getProjectByUserId(userId);
+	}
 }
