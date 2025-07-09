@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Entity.Project;
-import dto.ProjectDTO;
-import mapper.ProjectMapper;
+import Entity.Candidatura;
+import dto.CandidaturaDTO;
+import mapper.CandidaturaMapper;
 import repository.ProjectRepository;
 
 @Service
@@ -19,36 +19,36 @@ public class ProjectService {
 	private ProjectRepository projectRepo;
 
 	@Autowired
-	private ProjectMapper mapper;
+	private CandidaturaMapper mapper;
 	
-	public List<ProjectDTO> getAllProjects() {
+	public List<CandidaturaDTO> getAllCandidature() {
 		// TODO Auto-generated method stub
 	
-	List<Project> progettiTrovati= projectRepo.findAll();
-	 List<ProjectDTO> progettiToDTO= progettiTrovati.stream()
-             .map(project -> mapper.toDTO(project))
+	List<Candidatura> candidatureTrovate= projectRepo.findAll();
+	 List<CandidaturaDTO> candidatureToDTO= candidatureTrovate.stream()
+             .map(candidatura -> mapper.toDTO(candidatura))
              .collect(Collectors.toList());
 	 
-	 return progettiToDTO;
+	 return candidatureToDTO;
 }
 
-	public ProjectDTO getProjectById(String id) {
+	public CandidaturaDTO getCandidaturaById(String id) {
 		Long idConverted= Long.valueOf(id);
-		Optional<Project> progettoTrovatoOptional= projectRepo.findById(idConverted);
-		Project progettoTrovato= progettoTrovatoOptional.get();
-		ProjectDTO progettoToDTO= mapper.toDTO(progettoTrovato);
+		Optional<Candidatura> candidaturaTrovatoOptional= projectRepo.findById(idConverted);
+		Candidatura candidaturaTrovata= candidaturaTrovatoOptional.get();
+		CandidaturaDTO progettoToDTO= mapper.toDTO(candidaturaTrovata);
 		return progettoToDTO;
 	}
 
-	public List<ProjectDTO> getProjectByUserId(String userId) {
+	public List<CandidaturaDTO> getCandidatureByUserId(String userId) {
 		Long idConverted= Long.valueOf(userId);
-		Optional<List<Project>> progettiTrovatiOptional= projectRepo.findAllByUserId(idConverted);
-		List<Project> progetti=progettiTrovatiOptional.get();
-		List<ProjectDTO> progettiToDTO= progetti
-				.stream()
-				.map(progetto -> mapper.toDTO(progetto))
+		Optional<List<Candidatura>> candidatureTrovateOptional= projectRepo.findAllByUserId(idConverted);
+		List<Candidatura> candidature=candidatureTrovateOptional.get();
+		List<CandidaturaDTO> candidatureToDTO= candidature.stream().
+				map(candidatura -> mapper.toDTO(candidatura))
 				.collect(Collectors.toList());
-		return progettiToDTO;
+		
+		return candidatureToDTO;
 	}
 	
 }

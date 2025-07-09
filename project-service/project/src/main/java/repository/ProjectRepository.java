@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import Entity.Project;
+import Entity.Candidatura;
 
-public interface ProjectRepository extends JpaRepository<Project, Long>{
-Optional<List<Project>> findAllByUserId(Long id);
+public interface ProjectRepository extends JpaRepository<Candidatura, Long>{
+Optional<List<Candidatura>> findAllByUserId(Long id);
 }

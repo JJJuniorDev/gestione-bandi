@@ -6,11 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "project")
-public class Project {
+@Table(name = "candidatura")
+public class Candidatura {
 
 	  @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +21,12 @@ public class Project {
 	  
 	  private String description;
 	  
-	  private LocalDateTime startDate;
+	  private LocalDateTime dataInvio;
+	  	  
+	  private String status;// es: INVIATA, REVISIONE, ACCETTATA, RIFIUTATA
 	  
-	  private LocalDateTime endDate;
-	  
-	  private String status;
+	  @ManyToOne
+	  private Bando bando;
 	  
 	  private Long userId;
 
@@ -52,28 +54,31 @@ public class Project {
 		  this.description = description;
 	  }
 
-	  public LocalDateTime getStartDate() {
-		  return startDate;
+	  public LocalDateTime getDataInvio() {
+		  return dataInvio;
 	  }
 
-	  public void setStartDate(LocalDateTime startDate) {
-		  this.startDate = startDate;
+	  public void setDataInvio(LocalDateTime dataInvio) {
+		  this.dataInvio = dataInvio;
 	  }
 
-	  public LocalDateTime getEndDate() {
-		  return endDate;
-	  }
-
-	  public void setEndDate(LocalDateTime endDate) {
-		  this.endDate = endDate;
-	  }
-
+	
 	  public String getStatus() {
 		  return status;
 	  }
 
 	  public void setStatus(String status) {
 		  this.status = status;
+	  }
+
+	
+	
+	  public Bando getBando() {
+		return bando;
+	}
+
+	  public void setBando(Bando bando) {
+		  this.bando = bando;
 	  }
 
 	  public Long getUserId() {
@@ -83,6 +88,6 @@ public class Project {
 	  public void setUserId(Long userId) {
 		  this.userId = userId;
 	  }
-	  
-	  
+
+
 }

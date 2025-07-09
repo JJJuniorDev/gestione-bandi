@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.ProjectDTO;
+import dto.CandidaturaDTO;
 import service.ProjectService;
 
 @RestController
@@ -20,17 +20,17 @@ public class ProjectController {
 	
 	//DA RIMUOVERE IN FUTURO
 	@GetMapping
-	public List<ProjectDTO> getAllProjects() {
-		return projectServ.getAllProjects();
+	public List<CandidaturaDTO> getAllCandidature() {
+		return projectServ.getAllCandidature();
 	}
 	
 	@GetMapping("/{id}")
-	public ProjectDTO getProjectById(@PathVariable String id) {
-	return projectServ.getProjectById(id);
+	public CandidaturaDTO getCandidaturaById(@PathVariable String id) {
+	return projectServ.getCandidaturaById(id);
 }
 	
 	@GetMapping("/user/{userId}")
-	public List<ProjectDTO> getProjectByUserId(@PathVariable String userId) {
-		return projectServ.getProjectByUserId(userId);
+	public List<CandidaturaDTO> getCandidatureByUserId(@PathVariable String userId) {
+		return projectServ.getCandidatureByUserId(userId);
 	}
 }

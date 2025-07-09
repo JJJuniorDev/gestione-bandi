@@ -1,8 +1,12 @@
 package dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class ProjectDTO {
+import Entity.Bando;
+import jakarta.persistence.ManyToOne;
+
+public class CandidaturaDTO {
 
 	private String id;
 	
@@ -10,13 +14,14 @@ public class ProjectDTO {
 	
 	private String description;
 	
-	private LocalDateTime startDate;
-	
-  private LocalDateTime endDate;
-	  
+	 private LocalDateTime dataInvio;
+ 	  
 	  private String status;
 	  
 	  private String userId;
+
+	 
+	  private BandoDTO bandoDTO;
 
 	  public String getId() {
 		  return id;
@@ -42,20 +47,12 @@ public class ProjectDTO {
 		  this.description = description;
 	  }
 
-	  public LocalDateTime getStartDate() {
-		  return startDate;
+	  public LocalDateTime getDataInvio() {
+		  return dataInvio;
 	  }
 
-	  public void setStartDate(LocalDateTime startDate) {
-		  this.startDate = startDate;
-	  }
-
-	  public LocalDateTime getEndDate() {
-		  return endDate;
-	  }
-
-	  public void setEndDate(LocalDateTime endDate) {
-		  this.endDate = endDate;
+	  public void setDataInvio(LocalDateTime dataInvio) {
+		  this.dataInvio = dataInvio;
 	  }
 
 	  public String getStatus() {
@@ -73,6 +70,16 @@ public class ProjectDTO {
 	  public void setUserId(String userId) {
 		  this.userId = userId;
 	  }
-	  
+
+	  public BandoDTO getBandoDTO() {
+		  return bandoDTO;
+	  }
+
+	  public void setBandoDTO(BandoDTO bandoDTO) {
+		  this.bandoDTO = bandoDTO;
+	  }
+
+	 
+	
 	  
 }
