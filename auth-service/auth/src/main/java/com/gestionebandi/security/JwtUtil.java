@@ -53,7 +53,7 @@ public class JwtUtil {
                 .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
-            // Puoi loggare o gestire specificamente le eccezioni (ExpiredJwtException, etc.)
+            //TODO :gestire eccezione
             return false;
         }
     }
