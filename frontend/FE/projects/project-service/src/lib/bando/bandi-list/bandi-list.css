@@ -1,0 +1,64 @@
+.filter-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+select {
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  border: 2px solid #3498db;
+  background: white;
+  font-size: 1rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+select:hover {
+  border-color: #2980b9;
+}
+
+.bando-list {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.bando-item {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.bando-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.bando-item.closed {
+  opacity: 0.7;
+  background: #f8f9fa;
+}
+
+.bando-item.closed h3 {
+  color: #7f8c8d;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+}

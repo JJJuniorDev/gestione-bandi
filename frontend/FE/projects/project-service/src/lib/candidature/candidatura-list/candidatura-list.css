@@ -1,0 +1,133 @@
+
+  :host {
+    display: block;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+
+  h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border-radius: 2px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  li {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  li:empty {
+    display: none;
+  }
+
+  .candidatura-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .candidatura-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  .status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  /* Stili per gli stati delle candidature */
+  .status-inviata {
+    background-color: #f39c12;
+    color: white;
+  }
+
+  .status-valutazione {
+    background-color: #3498db;
+    color: white;
+  }
+
+  .status-accettata {
+    background-color: #2ecc71;
+    color: white;
+  }
+
+  .status-rifiutata {
+    background-color: #e74c3c;
+    color: white;
+  }
+
+  /* Stile per la lista vuota */
+  ul:has(> li:only-child:empty) {
+    display: block;
+    text-align: center;
+    font-style: italic;
+    color: #7f8c8d;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }

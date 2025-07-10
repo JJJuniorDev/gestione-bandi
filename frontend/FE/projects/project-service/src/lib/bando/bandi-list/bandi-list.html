@@ -1,0 +1,23 @@
+<div class="filter-container">
+  <select (change)="filterStatus.set($any($event).target.value)">
+    <option value="tutti">Tutti i bandi</option>
+    <option value="aperto">Bandi aperti</option>
+    <option value="chiuso">Bandi chiusi</option>
+  </select>
+</div>
+
+<div class="bandi-list">
+@for (bando of filteredBandi(); track bando.id) {
+ <div class="bando-item" [class.closed]="!bando.aperto">
+      <h3>{{ bando.titolo }} @if (!bando.aperto) {(Chiuso)}</h3>
+      <p>{{ bando.descrizione }}</p>
+      <p>Data Inizio: {{ bando.dataInizio | date: 'dd/MM/yyyy' }}</p>
+      <p>Data Fine: {{ bando.dataFine | date: 'dd/MM/yyyy' }}</p>
+      @if (bando.aperto) {
+        <button (click)="applyForBando(bando.id)">Candidati</button>
+      }
+    </div>
+  } @empty {
+    <p>Nessun bando disponibile</p>
+  }
+</div>

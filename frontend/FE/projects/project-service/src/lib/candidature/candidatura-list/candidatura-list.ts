@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CandidaturaService } from '../candidatura.service';
-import { CandidaturaDTO } from '../models/candidaturaDTO.model';
+import { CandidaturaDTO } from '../../models/candidaturaDTO.model';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditCandidatura } from '../add-edit-candidatura/add-edit-candidatura';
@@ -23,7 +23,8 @@ export class CandidaturaList implements OnInit{
   private userId:string="1";
 
   ngOnInit() {
-    if (this.role === "ADMIN") {
+    // if (this.role === "ADMIN") {
+    if(this.role===""){
     console.log("SIAMO QUI");
    this.candidaturaService.getAllCandidature().subscribe({
       next: (projects: CandidaturaDTO[]) => {

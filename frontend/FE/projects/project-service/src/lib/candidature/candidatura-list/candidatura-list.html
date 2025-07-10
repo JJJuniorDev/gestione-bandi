@@ -1,0 +1,21 @@
+<div class="candidature-container">
+  <h2>Le Mie Candidature</h2>
+  
+  <ul>
+    @for (candidatura of candidature(); track candidatura.id) {
+      <li class="candidatura-item">
+        <strong>Titolo:</strong> {{ candidatura.title }}
+        <strong>Descrizione:</strong> {{ candidatura.description }}
+        <strong>Data invio:</strong> {{ candidatura.dataInvio | date: 'dd/MM/yyyy' }}
+        <strong>Stato:</strong> 
+        <span class="status status-{{candidatura.status}}">
+          {{ candidatura.status }}
+        </span>
+      </li>
+    } @empty {
+      <li>Nessuna candidatura trovata.</li>
+    }  
+  </ul>
+  
+  <button (click)="addProject()">Aggiungi Candidatura</button>
+</div>

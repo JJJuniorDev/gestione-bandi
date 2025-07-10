@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CandidaturaDTO } from "./models/candidaturaDTO.model";
-import { environment } from '../../../../src/environments/environment'; // Adjust the path as necessary
+import { CandidaturaDTO } from "../models/candidaturaDTO.model";
+import { environment } from '../../../../../src/environments/environment'; // Adjust the path as necessary
 
 @Injectable({providedIn: 'root'})
 export class CandidaturaService {
@@ -19,7 +19,7 @@ getCandidatureByUserId(userId: string) {
 return this.http.get<CandidaturaDTO[]>(`${this.apiURL}/candidature/user/${userId}`);
 }
 
-createCandidatura(project: CandidaturaDTO){
+createCandidatura(project: CandidaturaDTO, bandoId?: string) {
 return this.http.post<CandidaturaDTO>(`${this.apiURL}/candidature`, project);
 }
 

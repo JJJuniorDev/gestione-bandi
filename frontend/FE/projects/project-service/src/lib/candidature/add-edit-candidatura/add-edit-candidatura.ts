@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CandidaturaDTO } from '../models/candidaturaDTO.model';
+import { CandidaturaDTO } from '../../models/candidaturaDTO.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,9 +18,10 @@ export class AddEditCandidatura implements OnInit {
   mode: 'add' | 'edit' | 'default' = 'default';
   candidaturaForm: FormGroup;
   today: Date = new Date();
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { mode: 'add' | 'edit'; candidatura: CandidaturaDTO | null },
+    public data: { mode: 'add' | 'edit'; bandoId?: string; candidatura?: CandidaturaDTO },
     private dialogRef: MatDialogRef<AddEditCandidatura>,
     private fb: FormBuilder
   ) {
@@ -49,6 +50,11 @@ export class AddEditCandidatura implements OnInit {
         userId: this.data.candidatura.userId, // Assuming userId is not editable
       });
     }
+    if (this.mode === 'add') {
+      this.candidaturaForm.patchValue({
+        dataInvio: this.today, // Set today's date for new candidatura
+      });
+    }
   }
 
   onSubmit(){
@@ -56,6 +62,7 @@ export class AddEditCandidatura implements OnInit {
       const candidatura: CandidaturaDTO = {
         ...this.candidaturaForm.value,
         id: this.data.candidatura ? this.data.candidatura.id : null, 
+        bandoDTO: this.data.bandoId ? { id: this.data.bandoId } : null, // Assuming bandoId is passed in data
       };
       this.dialogRef.close(candidatura);
     }
