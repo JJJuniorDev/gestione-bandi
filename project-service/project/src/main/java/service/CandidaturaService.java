@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import Entity.Candidatura;
 import dto.CandidaturaDTO;
+import enums.CandidaturaStatus;
+import exception.RisorsaNonTrovataException;
 import mapper.CandidaturaMapper;
 import repository.CandidaturaRepository;
 
@@ -17,7 +19,7 @@ import repository.CandidaturaRepository;
 public class CandidaturaService {
 
 	@Autowired
-	private CandidaturaRepository projectRepo;
+	private CandidaturaRepository candidaturaRepo;
 
 	@Autowired
 	private CandidaturaMapper mapper;
@@ -25,7 +27,7 @@ public class CandidaturaService {
 	public List<CandidaturaDTO> getAllCandidature() {
 		// TODO Auto-generated method stub
 	
-	List<Candidatura> candidatureTrovate= projectRepo.findAll();
+	List<Candidatura> candidatureTrovate= candidaturaRepo.findAll();
 	 List<CandidaturaDTO> candidatureToDTO= candidatureTrovate.stream()
              .map(candidatura -> mapper.toDTO(candidatura))
              .collect(Collectors.toList());
@@ -35,7 +37,11 @@ public class CandidaturaService {
 
 	public CandidaturaDTO getCandidaturaById(String id) {
 		Long idConverted= Long.valueOf(id);
-		Optional<Candidatura> candidaturaTrovatoOptional= projectRepo.findById(idConverted);
+		Optional<Candidatura> candidaturaTrovatoOptional= candidaturaRepo.findById(idConverted);
+		
+		if (candidaturaTrovatoOptional.isEmpty()) {
+	        throw new RisorsaNonTrovataException("Candidatura con id " + id + " non trovata");
+	    }
 		Candidatura candidaturaTrovata= candidaturaTrovatoOptional.get();
 		CandidaturaDTO progettoToDTO= mapper.toDTO(candidaturaTrovata);
 		return progettoToDTO;
@@ -43,13 +49,20 @@ public class CandidaturaService {
 
 	public List<CandidaturaDTO> getCandidatureByUserId(String userId) {
 		Long idConverted= Long.valueOf(userId);
-		Optional<List<Candidatura>> candidatureTrovateOptional= projectRepo.findAllByUserId(idConverted);
+		Optional<List<Candidatura>> candidatureTrovateOptional= candidaturaRepo.findAllByUserId(idConverted);
 		List<Candidatura> candidature=candidatureTrovateOptional.get();
 		List<CandidaturaDTO> candidatureToDTO= candidature.stream().
 				map(candidatura -> mapper.toDTO(candidatura))
 				.collect(Collectors.toList());
 		
 		return candidatureToDTO;
+	}
+
+	public CandidaturaDTO createCandidatura(CandidaturaDTO candidaturaDTO) {
+		candidaturaDTO.setStatus(CandidaturaStatus.INVIATA.name());
+		Candidatura candidaturaDTOtoEntity =mapper.toEntity(candidaturaDTO);
+		candidaturaRepo.save(candidaturaDTOtoEntity);
+		return candidaturaDTO;
 	}
 	
 }
