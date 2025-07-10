@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 import Entity.Candidatura;
 import dto.CandidaturaDTO;
 import mapper.CandidaturaMapper;
-import repository.ProjectRepository;
+import repository.CandidaturaRepository;
+
 
 @Service
-public class ProjectService {
+public class CandidaturaService {
 
 	@Autowired
-	private ProjectRepository projectRepo;
+	private CandidaturaRepository projectRepo;
 
 	@Autowired
 	private CandidaturaMapper mapper;

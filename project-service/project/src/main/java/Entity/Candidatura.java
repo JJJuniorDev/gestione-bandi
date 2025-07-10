@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,6 +27,7 @@ public class Candidatura {
 	  private String status;// es: INVIATA, REVISIONE, ACCETTATA, RIFIUTATA
 	  
 	  @ManyToOne
+	  @JoinColumn(name = "bando_id")
 	  private Bando bando;
 	  
 	  private Long userId;

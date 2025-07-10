@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.CandidaturaDTO;
-import service.ProjectService;
+import service.CandidaturaService;
 
 @RestController
-@RequestMapping("/api/projects")
-public class ProjectController {
+@RequestMapping("/api/candidature")
+public class CandidaturaController {
 
 	@Autowired
-	private ProjectService projectServ;
+	private CandidaturaService candidaturaServ;
 	
 	//DA RIMUOVERE IN FUTURO
 	@GetMapping
 	public List<CandidaturaDTO> getAllCandidature() {
-		return projectServ.getAllCandidature();
+		return candidaturaServ.getAllCandidature();
 	}
 	
 	@GetMapping("/{id}")
 	public CandidaturaDTO getCandidaturaById(@PathVariable String id) {
-	return projectServ.getCandidaturaById(id);
+	return candidaturaServ.getCandidaturaById(id);
 }
 	
 	@GetMapping("/user/{userId}")
 	public List<CandidaturaDTO> getCandidatureByUserId(@PathVariable String userId) {
-		return projectServ.getCandidatureByUserId(userId);
+		return candidaturaServ.getCandidatureByUserId(userId);
 	}
 }

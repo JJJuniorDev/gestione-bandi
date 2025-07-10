@@ -1,6 +1,8 @@
 package dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BandoDTO {
 
@@ -11,6 +13,8 @@ public class BandoDTO {
 	  private LocalDate dataFine;
 	  private String categoria;
 	  private boolean aperto;
+	  private List<CandidaturaDTO> candidature=new ArrayList<CandidaturaDTO>();
+	  
 	  public String getId() {
 		  return id;
 	  }
@@ -52,6 +56,12 @@ public class BandoDTO {
 	  }
 	  public void setAperto(boolean aperto) {
 		  this.aperto = aperto;
+	  }
+	  public List<CandidaturaDTO> getCandidature() {
+		  return candidature;
+	  }
+	  public void setCandidature(List<CandidaturaDTO> candidature) {
+		  this.candidature = candidature;
 	  }
 	  
 	  

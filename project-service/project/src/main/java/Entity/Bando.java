@@ -1,11 +1,16 @@
 package Entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,6 +26,11 @@ public class Bando {
   private LocalDate dataFine;
   private String categoria;
   private boolean aperto;
+  //CASCADE= SE ELIMINO UN BANDO ANCHE TUTTE LE CANDIDATURE CORRELATA
+  //ORPHAN REMOVAL SE CANDIDATURA RIMOSSA DALL'ARRAY ANCHE DAL DB
+  @OneToMany(mappedBy = "bando", cascade= CascadeType.ALL, orphanRemoval = true)
+  private List<Candidatura> candidatureBando= new ArrayList<Candidatura>(); 
+  
   public Long getId() {
 	return id;
   }
