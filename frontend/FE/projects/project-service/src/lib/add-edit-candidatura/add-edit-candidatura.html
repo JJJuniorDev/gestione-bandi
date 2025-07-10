@@ -1,0 +1,18 @@
+<form [formGroup]="candidaturaForm" (ngSubmit)="onSubmit()">
+<mat-form-field>
+    <mat-label>Titolo</mat-label>
+    <input matInput formControlName="title" placeholder="Inserisci il titolo del progetto" required>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Descrizione</mat-label>
+    <input matInput formControlName="description" placeholder="Inserisci una descrizione" required>
+</mat-form-field>
+<mat-form-field>
+    <mat-label>Data Invio</mat-label>
+<input matInput [value]="candidaturaForm.get('dataInvio')?.value | date:'dd/MM/yyyy'" readonly>
+</mat-form-field>
+<div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="candidaturaForm.invalid">Salva</button>
+    <button mat-raised-button color="warn" type="button" (click)="onCancel()">Annulla</button>
+</div>
+</form>
