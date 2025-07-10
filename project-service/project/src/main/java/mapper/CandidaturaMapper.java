@@ -18,6 +18,7 @@ public class CandidaturaMapper {
         dto.setTitle(candidatura.getTitle());
         dto.setDescription(candidatura.getDescription());
         dto.setDataInvio(candidatura.getDataInvio());
+        dto.setStatus(candidatura.getStatus());
         dto.setUserId(candidatura.getUserId() != null ? candidatura.getUserId().toString() : null);
         // Converti il Bando in DTO, se esiste
         if (candidatura.getBando() != null) {
