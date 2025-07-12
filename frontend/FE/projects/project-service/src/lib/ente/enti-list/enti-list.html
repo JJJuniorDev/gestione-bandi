@@ -1,0 +1,14 @@
+<p>enti-list works!</p>
+@if (enti !=null) {
+@for (ente of enti(); track ente.id) {
+    <div class="ente-item">
+        <h3>{{ ente.nome }}</h3>
+        <p>{{ ente.codiceIstat }}</p>
+        <p>Tipo: {{ ente.tipoEnte }}</p>
+        <p>Email: {{ ente.email }}</p>
+        <!-- <button (click)="viewDetails(ente.id)">Dettagli</button> -->
+    </div>
+}
+} @else {
+    <p>Nessun ente disponibile</p>
+}
