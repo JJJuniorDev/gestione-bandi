@@ -9,3 +9,7 @@ export * from './lib/models/candidaturaDTO.model';
 export * from './lib/bando/bandi-list/bandi-list';
 export * from './lib/bando/bandi.routes';
 export * from './lib/bando/bandoService';
+export * from './lib/login-component/login-component';
+export * from './lib/auth-service';
+
+ 

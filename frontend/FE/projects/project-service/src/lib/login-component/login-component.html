@@ -1,0 +1,27 @@
+<div style="max-width: 400px; margin: auto; padding: 2rem;">
+  <h2 *ngIf="!showRegister">Login</h2>
+  <h2 *ngIf="showRegister">Registrazione</h2>
+
+  <form [formGroup]="showRegister ? registerForm : loginForm" (ngSubmit)="showRegister ? submitRegister() : submitLogin()">
+    <div>
+      <label for="username">Username</label>
+      <input type="text" formControlName="username" required />
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" required />
+    </div>
+
+    <div *ngIf="showRegister">
+      <label for="confirmPassword">Conferma Password</label>
+      <input type="password" formControlName="confirmPassword" required />
+    </div>
+
+    <button type="submit">{{ showRegister ? 'Registrati' : 'Login' }}</button>
+  </form>
+
+  <button (click)="toggleForm()" style="margin-top: 1rem;">
+    {{ showRegister ? 'Hai già un account? Login' : 'Non hai un account? Registrati' }}
+  </button>
+</div>
