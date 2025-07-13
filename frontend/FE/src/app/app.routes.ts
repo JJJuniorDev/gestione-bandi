@@ -21,7 +21,8 @@ export const routes: Routes = [
     {
         path:'login',
         children: LOGIN_ROUTES 
-    }
+    },
+    {
         path: 'enti',
         children: ENTE_ROUTES
     },
