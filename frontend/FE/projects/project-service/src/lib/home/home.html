@@ -1,0 +1,50 @@
+<section class="hero p-6 text-center bg-gray-100 rounded-lg shadow mb-6">
+  <h1 class="text-3xl font-bold">Trova i bandi del tuo Comune o Regione</h1>
+  <p class="mt-2 text-lg text-gray-600">
+    Cerca e partecipa ai bandi pubblici del tuo ente territoriale
+  </p>
+</section>
+
+<section class="ente-selector max-w-xl mx-auto mt-6">
+  <label for="enteSearch" class="block text-sm font-medium text-gray-700 mb-2">
+    Seleziona un ente per visualizzare i suoi bandi:
+  </label>
+  <input
+    type="text"
+    id="enteSearch"
+    [value]="searchText()"
+    (input)="updateSearchText($event)"
+    placeholder="Comune di Milano, Regione Lazio..."
+    class="input input-bordered w-full"
+  />
+
+  <!-- @for (let ente of filteredEnti(); track ente.id) {
+    <div class="ente-card bg-white p-4 rounded-lg shadow mb-4">
+      <h2 class="text-xl font-semibold">{{ ente.nome }}</h2>
+      <p class="text-sm text-gray-500">{{ ente.tipoEnte }}</p>
+      <button class="btn btn-primary mt-2" (click)="selectEnte(ente)">
+        Visualizza bandi
+      </button>
+    </div>
+  } -->
+    <div *ngFor="let ente of filteredEnti(); trackBy: trackEnteById">
+  <div class="ente-card bg-white p-4 rounded-lg shadow mb-4">
+    <h2 class="text-xl font-semibold">{{ ente.nome }}</h2>
+    <p class="text-sm text-gray-500">{{ ente.tipoEnte }}</p>
+    <button class="btn btn-primary mt-2" (click)="selectEnte(ente)">
+      Visualizza bandi
+    </button>
+  </div>
+</div>
+</section>
+
+<section class="mt-10 text-center text-sm text-gray-500">
+  <p>
+    Hai già un account?
+    <a routerLink="/login" class="text-blue-500">Accedi</a>
+  </p>
+  <p>
+    Sei un ente?
+    <a routerLink="/login-ente" class="text-blue-500">Accedi come ente</a>
+  </p>
+</section>
