@@ -1,9 +1,11 @@
 package com.gestionebandi.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,14 @@ public class Login {
 	@Autowired
 	private JwtUtil jwtUtil;
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<?> login (@RequestBody UtentiDTO utente) {
 		String risposta = service.login(utente);
 		if (risposta.equals("login avvenuto con successo")) {
 			String token = jwtUtil.generateToken(utente.getUsername());
-			return ResponseEntity.ok().body("Bearer " + token);
+			 Map<String, String> tokenMap = new HashMap<>();
+		     tokenMap.put("token", "Bearer " + token);
+			return ResponseEntity.ok().body(tokenMap);
 		}else {
 			return ResponseEntity.status(401).body("Credenziali non valide");
 		}	

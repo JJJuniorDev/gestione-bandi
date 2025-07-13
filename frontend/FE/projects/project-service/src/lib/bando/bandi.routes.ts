@@ -9,4 +9,4 @@ export const BANDI_ROUTES = [
         path: 'user/:userId',
         component: BandiList,
     }
-]
+] 
