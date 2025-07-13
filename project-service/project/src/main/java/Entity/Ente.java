@@ -27,7 +27,7 @@ public class Ente {
 	
 	private String tipoEnte; //PROVINCIA, COMUNE; REGIONE ecc.
 	
-	@OneToMany(mappedBy = "bando", cascade= CascadeType.ALL, orphanRemoval = true )
+	@OneToMany(mappedBy = "ente", cascade= CascadeType.ALL, orphanRemoval = true )
 	private List<Bando> bandiAppartenenti = new ArrayList<Bando>();
 
 	public Long getId() {

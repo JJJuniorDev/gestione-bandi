@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -30,6 +31,10 @@ public class Bando {
   //ORPHAN REMOVAL SE CANDIDATURA RIMOSSA DALL'ARRAY ANCHE DAL DB
   @OneToMany(mappedBy = "bando", cascade= CascadeType.ALL, orphanRemoval = true)
   private List<Candidatura> candidatureBando= new ArrayList<Candidatura>(); 
+  
+  @ManyToOne
+  @JoinColumn(name = "ente_id")  // colonna FK nella tabella 'bando'
+  private Ente ente;
   
   public Long getId() {
 	return id;
@@ -73,7 +78,20 @@ public class Bando {
   public void setAperto(boolean aperto) {
 	this.aperto = aperto;
   }
+  public List<Candidatura> getCandidatureBando() {
+	return candidatureBando;
+  }
+  public void setCandidatureBando(List<Candidatura> candidatureBando) {
+	this.candidatureBando = candidatureBando;
+  }
+  public Ente getEnte() {
+	return ente;
+  }
+  public void setEnte(Ente ente) {
+	this.ente = ente;
+  }
 
+  
   // altro: importo massimo, documento PDF, requisiti, ecc.
   
   
