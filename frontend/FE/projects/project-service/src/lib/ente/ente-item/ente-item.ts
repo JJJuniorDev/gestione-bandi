@@ -1,12 +1,16 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { EnteService } from '../ente-service';
 import { EnteDTO } from '../../models/enteDTO.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { BandoDTO } from '../../models/bandoDTO.model';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'lib-ente-item',
-  imports: [DatePipe],
+  imports: [DatePipe, MatIconModule, MatButtonModule],
   templateUrl: './ente-item.html',
   styleUrl: './ente-item.css'
 })
@@ -16,7 +20,9 @@ export class EnteItem implements OnInit{
   enteId= signal<string | null>(null);
 
   constructor(private enteService: EnteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient
   ){}
 
   ngOnInit() {
@@ -30,6 +36,24 @@ console.log('ID ente dalla route:', id);
   this.enteService.getEnteById(this.enteId()!).subscribe((data: EnteDTO) => {
     this.ente.set(data);
   })
-  }
 
+ this.http.get('https://e64043bae0da.ngrok-free.app/api/user/me', { withCredentials: true })
+    .subscribe({
+      next: data => console.log('Utente autenticato:', data),
+      error: err => console.log('Non autenticato o errore:', err)
+    });
+  }
+  
+//reindirizza l’utente verso l’IdP SPID configurato (es. InfoCert)
+//
+ startSpidLogin() {
+  window.location.href = 'https://e64043bae0da.ngrok-free.app/saml2/authenticate/spid';
+   
+ }
+
+
+
+  candidati(bando: BandoDTO){
+    this.router.navigate(['/candidature', bando.id]);
+  }
 }

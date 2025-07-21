@@ -14,6 +14,7 @@ public class BandoDTO {
 	  private String categoria;
 	  private boolean aperto;
 	  private List<CandidaturaDTO> candidature=new ArrayList<CandidaturaDTO>();
+	  private EnteDTO ente;
 	  
 	  public String getId() {
 		  return id;
@@ -62,6 +63,12 @@ public class BandoDTO {
 	  }
 	  public void setCandidature(List<CandidaturaDTO> candidature) {
 		  this.candidature = candidature;
+	  }
+	  public EnteDTO getEnte() {
+		  return ente;
+	  }
+	  public void setEnte(EnteDTO ente) {
+		  this.ente = ente;
 	  }
 	  
 	  

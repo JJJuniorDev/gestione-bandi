@@ -1,33 +1,37 @@
+<button (click)="startSpidLogin()">Accedi con SPID</button>
 @if (ente() != null) {
-  <h1>{{ ente()!.nome }}</h1>
-@if (ente()!.bandiAppartenenti && ente()!.bandiAppartenenti.length>0) {
-    @for (bando of ente()!.bandiAppartenenti; track bando.id) {
-        <ul class="list-disc list-inside">
-            <li>
-                <a>
-                    {{ bando.titolo }}
-                </a>
-            </li>
-            <li>
-              Categoria: {{ bando.categoria}}
-            </li>
-               <li>
-              Aperto: {{ bando.aperto ? 'Si' : 'No'}}
-            </li>
-               <li>
-             Data inizio : {{ bando.dataInizio | date:'dd/MM/yyyy'}}
-            </li>
-                <li>
-                 Data fine : {{ bando.dataFine | date:'dd/MM/yyyy'}}
-            </li>
-            <li>
-                Descrizione: {{ bando.descrizione }}
-            </li>
-        </ul>
+  <section class="container">
+    <h1 class="title">{{ ente()!.nome }}</h1>
+
+    @if (ente()!.bandiAppartenenti && ente()!.bandiAppartenenti.length > 0) {
+      <div class="cards-grid">
+        @for (bando of ente()!.bandiAppartenenti; track bando.id) {
+          <div class="card">
+            <h2 class="card-title">{{ bando.titolo }}</h2>
+            <p class="card-category"><strong>Categoria:</strong> {{ bando.categoria }}</p>
+            <p class="card-status">
+              <strong>Aperto:</strong>
+              <span class="status" [class.open]="bando.aperto" [class.closed]="!bando.aperto">
+                {{ bando.aperto ? 'Sì' : 'No' }}
+              </span>
+            </p>
+            <p class="card-date"><strong>Data Inizio:</strong> {{ bando.dataInizio | date:'dd/MM/yyyy' }}</p>
+            <p class="card-date"><strong>Data Fine:</strong> {{ bando.dataFine | date:'dd/MM/yyyy' }}</p>
+            <p class="card-description">{{ bando.descrizione }}</p>
+            @if (bando.aperto) {
+                <button mat-fab aria-label="Partecipa" (click)="candidati(bando)">
+Partecipa
+</button>
+                } @else {
+                <span class="btn btn-secondary" disabled>Scaduto</span>
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="no-bandi-msg">Nessun bando disponibile per questo ente.</p>
     }
+  </section>
 } @else {
-    <p class="text-gray-500">Nessun bando disponibile per questo ente.</p>
-} 
-}@else {
-    <p>Caricamento in corso...</p>
+  <p class="loading-msg">Caricamento in corso...</p>
 }
