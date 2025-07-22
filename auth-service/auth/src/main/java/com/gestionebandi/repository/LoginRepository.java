@@ -23,7 +23,7 @@ public interface LoginRepository extends JpaRepository<UtentiEntity, UUID> {
 	
 	
 	@Transactional
-	@Query(value = "SELECT u.username, u.password FROM \"Utenti\" u WHERE u.username = :username AND u.password = :password", nativeQuery = true)
+	@Query(value = "SELECT u.username, u.password, u.ruolo FROM \"Utenti\" u WHERE u.username = :username AND u.password = :password", nativeQuery = true)
 	List<String> login(@Param("username") String username, @Param("password") String Password);
 	
 	

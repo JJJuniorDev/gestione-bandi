@@ -53,8 +53,11 @@ public class LoginServiceImpl implements LoginService {
 			String[] parts = stored.split(",");  // split separa la stringa in base alla virgola
 			String storedUsername = parts[0];   // "test"
 			String storedPassword = parts[1];   // "123456"
+			String storedRole = parts[2]; //RUOLO AGGIUNTO IN BEARER
 			if(storedUsername.equals(utente.getUsername()) && storedPassword.equals(utente.getPassword())) {
-				return "login avvenuto con successo";
+				//return "login avvenuto con successo";
+				System.out.println("login avvenuto con successo");
+				return storedRole;
 			}
 		} catch (Exception e) {
 			 e.printStackTrace(); // per debug

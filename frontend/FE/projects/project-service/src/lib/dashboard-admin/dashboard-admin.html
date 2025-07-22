@@ -1,0 +1,4 @@
+<h1>Dashboard Admin</h1>
+<button *ngIf="(auth.role$ | async) === 'ADMIN' || (auth.role$ | async) === 'AMMINISTRATORE'" (click)="creaBando()">
+  Crea Bando
+</button>

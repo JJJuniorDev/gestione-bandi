@@ -1,0 +1,157 @@
+/* Contenitore Hero */
+.hero {
+  background-color: #f3f4f6; /* grigio chiaro */
+  padding: 2.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  user-select: none;
+}
+
+.hero h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #1e40af; /* blu scuro */
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: #4b5563; /* grigio medio */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Selettore ente */
+.ente-selector {
+  max-width: 480px;
+  margin: 0 auto 3rem auto;
+  padding: 0 1rem;
+}
+
+.ente-selector label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151; /* grigio scuro */
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.ente-selector input[type="text"] {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #d1d5db; /* grigio chiaro */
+  transition: border-color 0.3s ease;
+  outline-offset: 2px;
+  outline-color: transparent;
+  box-sizing: border-box;
+}
+
+.ente-selector input[type="text"]:focus {
+  border-color: #2563eb; /* blu acceso */
+  outline-color: #2563eb;
+  box-shadow: 0 0 5px #2563ebaa;
+}
+
+/* Cards ente */
+.ente-card {
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+  margin-bottom: 1.25rem;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.ente-card:hover {
+  box-shadow: 0 8px 16px rgb(0 0 0 / 0.15);
+}
+
+.ente-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 0.25rem;
+}
+
+.ente-card p {
+  color: #6b7280; /* grigio */
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Pulsante Visualizza bandi */
+.btn {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  box-shadow: 0 4px 8px rgb(37 99 235 / 0.4);
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  box-shadow: 0 6px 12px rgb(29 78 216 / 0.6);
+}
+
+/* Sezione login */
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .ente-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}

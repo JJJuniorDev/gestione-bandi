@@ -43,4 +43,9 @@ filteredEnti = computed(() => {
  trackEnteById(index: number, ente: any) {
   return ente.id;
 }
+
+onGoToLogin() {
+    this.router.navigate(['/login']);
+  }
+  
 }

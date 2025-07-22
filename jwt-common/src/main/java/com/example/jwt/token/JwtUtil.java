@@ -32,6 +32,17 @@ public class JwtUtil {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+    
+    public String generateToken(String username, String role) {
+        SecretKey key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role", role) //  IL RUOLO
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMs()))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
 
     public String getUsernameFromToken(String token) {
         Claims claims = Jwts.parserBuilder()

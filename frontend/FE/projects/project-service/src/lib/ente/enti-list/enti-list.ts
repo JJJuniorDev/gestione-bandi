@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { EnteService } from '../ente-service';
 import { EnteDTO } from '../../models/enteDTO.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'lib-enti-list',
@@ -11,7 +12,9 @@ import { EnteDTO } from '../../models/enteDTO.model';
 export class EntiList implements OnInit {
 
 
-  constructor(private enteService: EnteService){}
+  constructor(private enteService: EnteService,
+    private http: HttpClient
+  ){}
 
     enti=signal<EnteDTO[]>([]);
 
@@ -22,7 +25,10 @@ export class EntiList implements OnInit {
       this.enti.set(enti);
       console.log("ENTI (DOPO FETCH)", this.enti);
     }
-  })
-  }
+  });
 
+  // TEST SPID
+  // genera e firma un AuthnRequest in formato corretto (POST binding)
+  
+}
 }
