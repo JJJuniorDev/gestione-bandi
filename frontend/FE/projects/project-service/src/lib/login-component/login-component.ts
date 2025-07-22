@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth-service'; 
 
 @Component({
@@ -12,6 +13,7 @@ import { AuthService } from '../auth-service';
 })
 export class LoginComponent {
   private auth = inject(AuthService);
+  constructor(private router: Router) {};
 
   showRegister = false;
 
@@ -37,8 +39,9 @@ export class LoginComponent {
 
     this.auth.login({ username, password }).subscribe({
       next: res => {
-        localStorage.setItem('token', res.token); // Assicurati che il BE ritorni { token: string }
+        sessionStorage.setItem('token', res.token); // Assicurati che il BE ritorni { token: string }
         console.log('Login effettuato con successo!');
+        this.router.navigate(['/bandi']);
       },
       error: err => {
         console.error('Errore login:', err);

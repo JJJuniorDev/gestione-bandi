@@ -13,6 +13,7 @@ private apiURL= environment.api.project;
   constructor(private http: HttpClient) { }
 
   getAllBandi(){
-return this.http.get<BandoDTO[]>(`${this.apiURL}/bandi`);
+    console.log("Fetching all bandi from API");
+      return this.http.get<BandoDTO[]>(`${this.apiURL}/bandi`);
   }
 }

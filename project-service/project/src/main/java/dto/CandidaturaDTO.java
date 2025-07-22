@@ -1,10 +1,6 @@
 package dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import Entity.Bando;
-import jakarta.persistence.ManyToOne;
 
 public class CandidaturaDTO {
 

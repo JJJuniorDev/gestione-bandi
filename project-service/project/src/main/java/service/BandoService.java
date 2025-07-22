@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.jwt.token.JwtUtil;
+
 import Entity.Bando;
 import dto.BandoDTO;
 import mapper.BandoMapper;
@@ -13,6 +15,8 @@ import repository.BandoRepository;
 
 @Service
 public class BandoService {
+	
+	private final JwtUtil jwtUtil = null;
 
 	@Autowired
 	private BandoRepository bandoRepository;

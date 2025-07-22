@@ -1,6 +1,7 @@
 package com.gestionebandi.config;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,7 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.gestionebandi.security.JwtUtil;
+import com.example.jwt.token.JwtUtil;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,6 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private final JwtUtil jwtUtil;
+	private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
 	public JwtAuthenticationFilter(JwtUtil jwtUtil) {
 		this.jwtUtil = jwtUtil;
@@ -28,6 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
+		logger.info("JwtAuthenticationFilter invoked on: " + request.getRequestURI());
+
 		
 		 String path = request.getRequestURI();
 		    if (path.startsWith("/public/")) {
@@ -38,7 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		if (header != null && header.startsWith("Bearer ")) {
 			String token = header.substring(7);
+			 logger.info("JWT estratto: " + token);
 			if (jwtUtil.validateToken(token)) {
+				 logger.info("Token valido.");
 				String username = jwtUtil.getUsernameFromToken(token);
 
 				UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(username, null,
@@ -46,6 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 				auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(auth);
+			}else {
+				logger.warning("TOKEN NON VALIDO");
 			}
 		}
 

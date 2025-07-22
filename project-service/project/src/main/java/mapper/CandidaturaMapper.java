@@ -1,10 +1,7 @@
 package mapper;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
-import Entity.Bando;
 import Entity.Candidatura;
 import dto.CandidaturaDTO;
 
