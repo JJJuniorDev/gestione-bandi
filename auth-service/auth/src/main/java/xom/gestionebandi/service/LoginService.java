@@ -8,5 +8,5 @@ public interface LoginService {
 	
 	String register(UtentiDTO utente);
 	
-	String login(UtentiDTO utente);
+	UtentiDTO login(UtentiDTO utente);
 }

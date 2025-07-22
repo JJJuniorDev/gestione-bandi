@@ -45,25 +45,28 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String login(UtentiDTO utente) {
-		List<String> risposta;
-		try {
-			risposta = repo.login(utente.getUsername(), utente.getPassword());
-			String stored = risposta.get(0);  // esempio: "test,123456"
-			String[] parts = stored.split(",");  // split separa la stringa in base alla virgola
-			String storedUsername = parts[0];   // "test"
-			String storedPassword = parts[1];   // "123456"
-			String storedRole = parts[2]; //RUOLO AGGIUNTO IN BEARER
-			if(storedUsername.equals(utente.getUsername()) && storedPassword.equals(utente.getPassword())) {
-				//return "login avvenuto con successo";
-				System.out.println("login avvenuto con successo");
-				return storedRole;
-			}
-		} catch (Exception e) {
-			 e.printStackTrace(); // per debug
-			    return "Username o password sbagliati";
-		}
-		return null;
+	public UtentiDTO login(UtentiDTO utente) {  // Cambia il return type da String a UtentiDTO
+	    List<String> risposta;
+	    try {
+	        risposta = repo.login(utente.getUsername(), utente.getPassword());
+	        String stored = risposta.get(0);
+	        String[] parts = stored.split(",");
+	        String storedUsername = parts[0];
+	        String storedPassword = parts[1];
+	        String storedRole = parts[2];
+	        String storedEnteId = parts[3]; // Recupera l'ID ente
+
+	        if(storedUsername.equals(utente.getUsername()) && storedPassword.equals(utente.getPassword())) {
+	            UtentiDTO response = new UtentiDTO();
+	            response.setUsername(storedUsername);
+	            response.setRole(storedRole);
+	            response.setEnteId(storedEnteId); // Imposta l'enteId nel DTO
+	            return response; // Restituisci l'oggetto completo
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null; // Fallimento
 	}
 
 
