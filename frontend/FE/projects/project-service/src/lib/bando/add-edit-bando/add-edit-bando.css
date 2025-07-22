@@ -1,0 +1,127 @@
+/* Stile per il form di candidatura */
+form {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Stile per gli input */
+.mat-mdc-text-field-wrapper {
+  background-color: #f8f9fa !important;
+  border-radius: 8px !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field:hover .mat-mdc-text-field-wrapper {
+  background-color: #f1f3f5 !important;
+}
+
+.mat-mdc-input-element {
+  color: #2c3e50 !important;
+  font-size: 1rem !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Stile per le label */
+.mat-mdc-form-field-label {
+  color: #7f8c8d !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-label {
+  color: #3498db !important;
+}
+
+/* Stile per il bordo inferiore */
+.mat-mdc-form-field-underline {
+  background-color: #bdc3c7 !important;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-underline {
+  background-color: #3498db !important;
+  height: 2px !important;
+}
+
+/* Stile per il campo data (readonly) */
+mat-form-field[readonly] .mat-mdc-text-field-wrapper {
+  background-color: #e9ecef !important;
+}
+
+/* Stile per i pulsanti */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+button[mat-raised-button] {
+  min-width: 120px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button[mat-raised-button][color="primary"] {
+  background: linear-gradient(to right, #3498db, #2ecc71);
+  color: white;
+}
+
+button[mat-raised-button][color="primary"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+button[mat-raised-button][color="warn"] {
+  background: linear-gradient(to right, #e74c3c, #f39c12);
+  color: white;
+}
+
+button[mat-raised-button][color="warn"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+button[mat-raised-button][disabled] {
+  background: #bdc3c7 !important;
+  color: #7f8c8d !important;
+  transform: none !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* Stile per gli errori */
+.mat-mdc-form-field-error {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+/* Animazione per il form */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+form {
+  animation: fadeIn 0.5s ease-out;
+}

@@ -8,12 +8,16 @@
     <input matInput formControlName="descrizione" placeholder="Inserisci una descrizione" required>
 </mat-form-field>
 <mat-form-field>
-    <mat-label>Data Inizio</mat-label>
-<input matInput [value]="bandoForm.get('dataInizio')?.value | date:'dd/MM/yyyy'" readonly>
+  <mat-label>Data Inizio</mat-label>
+  <input matInput [matDatepicker]="pickerInizio" formControlName="dataInizio" placeholder="Scegli una data">
+  <mat-datepicker-toggle matSuffix [for]="pickerInizio"></mat-datepicker-toggle>
+  <mat-datepicker #pickerInizio></mat-datepicker>
 </mat-form-field>
 <mat-form-field>
     <mat-label>Data Fine</mat-label>
-<input matInput [value]="bandoForm.get('dataFine')?.value | date:'dd/MM/yyyy'" readonly>
+<input matInput [matDatepicker]="pickerFine" formControlName="dataFine" placeholder="Scegli una data" required>
+ <mat-datepicker-toggle matSuffix [for]="pickerFine"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFine></mat-datepicker>
 </mat-form-field>
 <mat-form-field>
   <mat-label>Categoria</mat-label>
