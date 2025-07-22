@@ -1,10 +1,12 @@
 package Entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +37,23 @@ public class Bando {
   @ManyToOne
   @JoinColumn(name = "ente_id")  // colonna FK nella tabella 'bando'
   private Ente ente;
+  
+  //NUOVI
+  private BigDecimal budgetTotale;
+  private BigDecimal finanziamentoMassimo;
+  private BigDecimal quotaContributo;
+
+  private String tipoOrigine; // COMUNE, REGIONE, UE, IMPORT_API
+  private String linkUfficiale;
+
+  private String stato; // BOZZA, VALIDATO, PUBBLICATO, SCADUTO
+  @ElementCollection
+  private List<String> documentiRichiesti;
+
+  //@ManyToOne
+  //@JoinColumn(name = "responsabile_id")
+  //PENSARE BENE A COME STRUTTURARE LA COSA
+  private String responsabile;
   
   public Long getId() {
 	return id;
@@ -89,6 +108,54 @@ public class Bando {
   }
   public void setEnte(Ente ente) {
 	this.ente = ente;
+  }
+  public BigDecimal getBudgetTotale() {
+	return budgetTotale;
+  }
+  public void setBudgetTotale(BigDecimal budgetTotale) {
+	this.budgetTotale = budgetTotale;
+  }
+  public BigDecimal getFinanziamentoMassimo() {
+	return finanziamentoMassimo;
+  }
+  public void setFinanziamentoMassimo(BigDecimal finanziamentoMassimo) {
+	this.finanziamentoMassimo = finanziamentoMassimo;
+  }
+  public BigDecimal getQuotaContributo() {
+	return quotaContributo;
+  }
+  public void setQuotaContributo(BigDecimal quotaContributo) {
+	this.quotaContributo = quotaContributo;
+  }
+  public String getTipoOrigine() {
+	return tipoOrigine;
+  }
+  public void setTipoOrigine(String tipoOrigine) {
+	this.tipoOrigine = tipoOrigine;
+  }
+  public String getLinkUfficiale() {
+	return linkUfficiale;
+  }
+  public void setLinkUfficiale(String linkUfficiale) {
+	this.linkUfficiale = linkUfficiale;
+  }
+  public String getStato() {
+	return stato;
+  }
+  public void setStato(String stato) {
+	this.stato = stato;
+  }
+  public List<String> getDocumentiRichiesti() {
+	return documentiRichiesti;
+  }
+  public void setDocumentiRichiesti(List<String> documentiRichiesti) {
+	this.documentiRichiesti = documentiRichiesti;
+  }
+  public String getResponsabile() {
+	return responsabile;
+  }
+  public void setResponsabile(String responsabile) {
+	this.responsabile = responsabile;
   }
 
   

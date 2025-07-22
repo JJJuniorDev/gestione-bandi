@@ -1,5 +1,6 @@
 package Entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
@@ -31,7 +32,12 @@ public class Candidatura {
 	  private Bando bando;
 	  
 	  private Long userId;
+	  private LocalDate dataValutazione;
+	// Cliente o ente per cui è presentata la candidatura (se applicabile)
+	    private String cliente;
 
+	    // Utente responsabile (solo id esterno, non join a User)
+	    private String responsabileId;
 	  public Long getId() {
 		  return id;
 	  }
@@ -89,6 +95,30 @@ public class Candidatura {
 
 	  public void setUserId(Long userId) {
 		  this.userId = userId;
+	  }
+
+	  public LocalDate getDataValutazione() {
+		  return dataValutazione;
+	  }
+
+	  public void setDataValutazione(LocalDate dataValutazione) {
+		  this.dataValutazione = dataValutazione;
+	  }
+
+	  public String getCliente() {
+		  return cliente;
+	  }
+
+	  public void setCliente(String cliente) {
+		  this.cliente = cliente;
+	  }
+
+	  public String getResponsabileId() {
+		  return responsabileId;
+	  }
+
+	  public void setResponsabileId(String responsabileId) {
+		  this.responsabileId = responsabileId;
 	  }
 
 

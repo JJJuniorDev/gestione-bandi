@@ -12,7 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 		"Entity",
 		"mapper",
 		"repository",
-		"service"})
+		"service",
+		"enums",
+		"exception"})
 @EnableJpaRepositories("repository")  // abilita esplicitamente i repository in quel package
 @EntityScan("Entity")
 public class ProjectApplication {

@@ -1,5 +1,6 @@
 package dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class CandidaturaDTO {
 	 
 	  private BandoDTO bandoDTO;
 
+	  private LocalDate dataValutazione;
+	  
+	  private String cliente;
+	  
+	  private String responsabileId;
+	  
 	  public String getId() {
 		  return id;
 	  }
@@ -77,6 +84,30 @@ public class CandidaturaDTO {
 
 	  public void setBandoDTO(BandoDTO bandoDTO) {
 		  this.bandoDTO = bandoDTO;
+	  }
+
+	  public LocalDate getDataValutazione() {
+		  return dataValutazione;
+	  }
+
+	  public void setDataValutazione(LocalDate dataValutazione) {
+		  this.dataValutazione = dataValutazione;
+	  }
+
+	  public String getCliente() {
+		  return cliente;
+	  }
+
+	  public void setCliente(String cliente) {
+		  this.cliente = cliente;
+	  }
+
+	  public String getResponsabileId() {
+		  return responsabileId;
+	  }
+
+	  public void setResponsabileId(String responsabileId) {
+		  this.responsabileId = responsabileId;
 	  }
 
 	 
