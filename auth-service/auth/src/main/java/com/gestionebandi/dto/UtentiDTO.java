@@ -6,6 +6,10 @@ public class UtentiDTO {
 	
 	private String password;
 
+	private String role;
+	
+	private String enteId;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -20,6 +24,22 @@ public class UtentiDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEnteId() {
+		return enteId;
+	}
+
+	public void setEnteId(String enteId) {
+		this.enteId = enteId;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

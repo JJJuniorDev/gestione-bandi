@@ -28,7 +28,8 @@ public class UtentiEntity {
 	 @Enumerated(EnumType.STRING) // salva come "USER", "ADMIN", ecc.
 	 private Role role;
 
-	 
+	 @Column(name="ente_id")
+	 private String enteId;
 	 
 	 
 	 public UUID getId() {
@@ -61,6 +62,14 @@ public class UtentiEntity {
 
 	 public void setRole(Role role) {
 		 this.role = role;
+	 }
+
+	 public String getEnteId() {
+		 return enteId;
+	 }
+
+	 public void setEnteId(String enteId) {
+		 this.enteId = enteId;
 	 }
 	
 	
