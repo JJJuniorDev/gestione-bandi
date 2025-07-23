@@ -1,0 +1,21 @@
+logging:
+  level:
+    org.springframework.security.saml2.provider.service: DEBUG
+    org.springframework.security.saml2.provider.service.authentication: DEBUG
+server:
+  port: 8081
+  ssl:
+    enabled: false # Se usi ngrok in HTTP locale, disattiva SSL locale
+spring:
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          spid:
+            entity-id: https://e64043bae0da.ngrok-free.app/saml2/spid
+            signing:
+              credentials:
+                - private-key-location: classpath:spid-private.key
+                  certificate-location: classpath:spid-cert.crt
+            assertingparty:
+              metadata-uri: https://identity.infocert.it/metadata/metadata.xml

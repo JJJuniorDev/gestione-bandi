@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { CATEGORIE_BANDO } from '../../shared/categorie';
 
 @Component({
   selector: 'lib-add-edit-bando',
@@ -20,7 +21,7 @@ export class AddEditBando implements OnInit {
   mode: 'add' | 'edit' | 'default' = 'default';
   bandoForm: FormGroup;
   today: Date = new Date();
-  categorie: string[] = ['Infrastrutture', 'Istruzione', 'Sanità', 'Ambiente', 'Cultura'];
+  categorie: string[] =CATEGORIE_BANDO;
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { mode: 'add' | 'edit'; bando?: BandoDTO },

@@ -29,11 +29,17 @@ public class Login {
 	@PostMapping("/login")
 	public ResponseEntity<?> login (@RequestBody UtentiDTO utente) {
 		//String risposta = service.login(utente);
-		 String ruolo = service.login(utente);
+		// String ruolo = service.login(utente);
+		UtentiDTO authUser = service.login(utente);
 		//if (risposta.equals("login avvenuto con successo")) {
-		 if (ruolo != null) {
-			String token = jwtUtil.generateToken(utente.getUsername(), ruolo);
-			 Map<String, String> tokenMap = new HashMap<>();
+		 //if (ruolo != null) {
+		 if (authUser != null) {
+		        String token = jwtUtil.generateToken(
+		            authUser.getUsername(), 
+		            authUser.getRole(), 
+		            authUser.getEnteId() // Usa l'enteId dall'oggetto restituito
+		        );
+		        Map<String, String> tokenMap = new HashMap<>();
 		     tokenMap.put("token", "Bearer " + token);
 			return ResponseEntity.ok().body(tokenMap);
 		}else {

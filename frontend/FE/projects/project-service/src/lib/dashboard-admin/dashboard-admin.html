@@ -1,4 +1,207 @@
-<h1>Dashboard Admin</h1>
-<button *ngIf="(auth.role$ | async) === 'ADMIN' || (auth.role$ | async) === 'AMMINISTRATORE'" (click)="creaBando()">
-  Crea Bando
-</button>
+
+<div *ngIf="(auth.role$ | async) === 'ADMIN' || (auth.role$ | async) === 'AMMINISTRATORE'">
+<div class="dashboard-admin">
+  <!-- Header con info utente e logout -->
+  <header class="dashboard-header">
+    <div class="header-left">
+      <h1><i class="fas fa-university"></i> Gestione Bandi Comunali</h1>
+    </div>
+    <div class="header-right">
+      <span class="user-info">
+        <i class="fas fa-user-shield"></i> {{ (auth.role$ | async) }} 
+      </span>
+      <button class="btn-logout" > (click)="logout()"
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- Barra delle azioni principali -->
+   
+  <div class="action-bar">
+    <button  class="btn-action primary" (click)="creaBando()"><!-- *ngIf="isAdmin()"-->
+      <i class="fas fa-plus"></i> Crea Nuovo Bando
+    </button>
+    
+     <div class="dropdown">
+      <button class="btn-action secondary" > <!--(click)="toggleImportDropdown()"-->
+        <i class="fas fa-file-import"></i> Importa Bando <i class="fas fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content" ><!-- *ngIf="showImportDropdown"-->
+        <button ><!-- (click)="importaDaAPI('TED')"-->
+          <i class="fas fa-cloud-download-alt"></i> Da API TED
+        </button>
+        <button ><!--(click)="importaDaAPI('Regione')"-->
+          <i class="fas fa-cloud-download-alt"></i> Da Regione
+        </button>
+        <button ><!-- (click)="apriModalUpload('XML')"-->
+          <i class="fas fa-file-code"></i> Carica XML
+        </button>
+        <button > <!--(click)="apriModalUpload('CSV')" -->
+          <i class="fas fa-file-csv"></i> Carica CSV
+        </button>
+      </div>
+    </div> 
+    
+    <button class="btn-action tertiary" >  <!--(click)="mostraReport()" -->
+      <i class="fas fa-chart-bar"></i> Report Bandi
+    </button>
+  </div>
+
+  <!-- Tabella dei bandi con filtri -->
+  <div class="filtri-bandi">
+    <div class="filter-group">
+      <label>Stato:</label>
+      <select > <!--(change)="filtraPerStato($event)" -->
+        <option value="tutti">Tutti</option>
+        <option value="bozza">Bozza</option>
+        <option value="validato">Validato</option>
+        <option value="pubblicato">Pubblicato</option>
+        <option value="chiuso">Chiuso</option>
+      </select>
+    </div>
+ 
+    <div class="filter-group">
+      <label>Categoria:</label>
+      <select > <!--(change)="filtraPerCategoria($event)" -->
+        <option value="tutte">Tutte</option>
+        <option *ngFor="let cat of categorie$" >{{cat}}  </option> <!-- -->
+      </select>
+    </div>
+    
+    <button class="btn-reset" >    <!-- (click)="resetFiltri()"-->
+      <i class="fas fa-undo"></i> Reset Filtri
+    </button>
+  </div>
+
+  <!-- Lista bandi con azioni contestuali -->
+  <div class="lista-bandi">
+    <div class="bando-item" *ngFor="let bando of bandiFiltrati"> <!-- -->
+      <div class="bando-header">
+        <h3> {{bando.titolo}} </h3>
+        <span class="bando-categoria" [ngClass]="bando.categoria">  <!-- -->
+          CATEGORIA  {{bando.categoria| uppercase}} 
+       </span>
+      </div>
+      
+      <div class="bando-meta">
+        <span><i class="fas fa-calendar-alt"></i> Data fine: {{ bando.dataFine | date }} </span>
+        <span><i class="fas fa-euro-sign"></i> Data inizio: {{ bando.dataInizio | date }}</span>
+        <span><i class="fas fa-file-alt"></i> Candidature: {{ bando.candidature }}</span>
+      </div>  
+      
+      <div class="bando-actions">   
+        <button >  <!--(click)="visualizzaBando(bando.id)" -->
+          <i class="fas fa-eye"></i> Dettagli
+        </button>
+        
+        <button > <!--*ngIf="bando.stato === 'bozza' && isAdmin()" (click)="modificaBando(bando.id)" -->
+          <i class="fas fa-edit"></i> Modifica
+        </button>
+        
+        <button ><!--*ngIf="bando.stato === 'bozza' && isAdmin()" (click)="validaBando(bando.id)" -->
+          <i class="fas fa-check-circle"></i> Valida
+        </button>
+        
+        <button ><!--*ngIf="bando.stato === 'validato' && isAdmin()" (click)="pubblicaBando(bando.id)" -->
+          <i class="fas fa-upload"></i> Pubblica
+        </button>
+        
+        <button ><!--*ngIf="bando.stato === 'pubblicato'" (click)="gestisciCandidature(bando.id)" -->
+          <i class="fas fa-users"></i> Candidature ( bando.candidature )
+        </button>
+        
+        <button > <!--*ngIf="bando.stato === 'pubblicato' && isScaduto(bando.scadenza)" 
+                (click)="chiudiBando(bando.id)" -->
+          <i class="fas fa-lock"></i> Chiudi
+        </button>
+        
+        <button > <!--*ngIf="bando.stato === 'chiuso'" (click)="generaGraduatoria(bando.id)" --> 
+          <i class="fas fa-trophy"></i> Graduatoria
+        </button>
+      </div>
+    </div>
+  </div>
+<!-- -->
+  <!-- Sezione per la gestione delle candidature (visibile solo quando selezionato un bando) -->
+  <div class="gestione-candidature" > <!--*ngIf="bandoSelezionato$ | async as bando" -->
+    <div class="candidature-header">
+      <h2>Candidature per:  bando.titolo </h2>
+      <div class="candidature-actions">
+        <button >  <!--(click)="esportaCandidature(bando.id, 'PDF')" -->
+          <i class="fas fa-file-pdf"></i> Esporta PDF
+        </button>
+        <button > <!--(click)="esportaCandidature(bando.id, 'Excel')" -->
+          <i class="fas fa-file-excel"></i> Esporta Excel
+        </button>
+        <button > <!--(click)="inviaNotifiche(bando.id)" -->
+          <i class="fas fa-envelope"></i> Notifica Tutti
+        </button>
+      </div>
+    </div>
+    
+    <div class="candidature-filters">
+      <input type="text" placeholder="Cerca candidatura..." ><!-- (input)="filtraCandidature($event)"--> 
+      <select > <!--(change)="ordinaCandidature($event)" -->
+        <option value="data">Ordina per data</option>
+        <option value="punteggio">Ordina per punteggio</option>
+      </select>
+    </div>
+    
+    <div class="candidature-list">
+      <!-- Le singole candidature verrebbero visualizzate qui -->
+    </div>
+  </div>
+
+  <!-- Modal per la creazione/modifica bando -->
+  <!-- <div class="modal" *ngIf="mostraModalBando">
+    <div class="modal-content">
+      <span class="close" (click)="chiudiModal()">&times;</span>
+      <h2>{{ modalTitolo }}</h2>
+      
+      <form class="bando-form">
+        <div class="form-group">
+          <label>Titolo</label>
+          <input type="text" [(ngModel)]="bandoCorrente.titolo">
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data Scadenza</label>
+            <input type="date" [(ngModel)]="bandoCorrente.scadenza">
+          </div>
+          
+          <div class="form-group">
+            <label>Budget</label>
+            <input type="number" [(ngModel)]="bandoCorrente.budget">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Descrizione</label>
+          <textarea [(ngModel)]="bandoCorrente.descrizione"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Categoria</label>
+          <select [(ngModel)]="bandoCorrente.categoria">
+            <option *ngFor="let cat of categorie$ | async" [value]="cat.id">{{ cat.nome }}</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label>Documenti Richiesti</label>
+          <div class="documenti-list">
+            
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="chiudiModal()">Annulla</button>
+          <button type="submit" class="btn-save" (click)="salvaBando()">Salva Bando</button>
+        </div>
+      </form>
+    </div>
+  </div> -->
+</div>
+</div>

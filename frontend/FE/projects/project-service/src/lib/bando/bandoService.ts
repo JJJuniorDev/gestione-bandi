@@ -21,4 +21,8 @@ private apiURL= environment.api.project;
     console.log("Fetching all bandi from API");
       return this.http.get<BandoDTO[]>(`${this.apiURL}/bandi`);
   }
+
+  getBandiByEnte(enteId: string): Observable<BandoDTO[]> {
+    return this.http.get<BandoDTO[]>(`${this.apiURL}/bandi/ente/${enteId}`);
+  }
 }

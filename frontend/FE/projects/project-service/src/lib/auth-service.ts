@@ -23,6 +23,7 @@ Aggiorna gli Observable (role$ e username$) con i dati dell’utente → così i
 interface JwtPayload {
   sub: string;
   role: string;
+  ente_id?: string; 
   exp: number;
 }
 @Injectable({ providedIn: 'root' })
@@ -30,9 +31,11 @@ export class AuthService {
   private apiURL= environment.api.auth;
  private roleSubject = new BehaviorSubject<string | null>(null);
   private usernameSubject = new BehaviorSubject<string | null>(null);
+  private enteIdSubject = new BehaviorSubject<string | null>(null);
    role$ = this.roleSubject.asObservable();
   username$ = this.usernameSubject.asObservable();
-
+  enteId$= this.enteIdSubject.asObservable();
+  
   constructor(private http: HttpClient,
     private router: Router
   ) {
@@ -85,6 +88,9 @@ export class AuthService {
      console.log('RUOLO:', decoded.role);
     this.roleSubject.next(decoded.role);
     this.usernameSubject.next(decoded.sub);
+    this.enteIdSubject.next(decoded.ente_id || null);
+    console.log('Username:', decoded.sub);
+    console.log('Ente ID:', decoded.ente_id);
   }
 
   private loadFromLocalStorage() {

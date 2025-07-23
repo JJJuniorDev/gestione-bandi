@@ -8,15 +8,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Entity.Ente;
 import com.gestionebandi.config.SecurityConfig;
 
 import dto.BandoDTO;
+import dto.EnteDTO;
 import service.BandoService;
+import service.EnteService;
 
 @RestController
 @RequestMapping("/api/bandi")
@@ -26,6 +30,15 @@ public class BandoController {
 	@Autowired
 	private BandoService bandoService;
 	
+	@Autowired
+	private EnteService enteService;
+	
+	@GetMapping("/ente/{enteId}")
+	public List<BandoDTO> getBandiByEnteId(@PathVariable String enteId){
+		EnteDTO ente=this.enteService.getEnteById(enteId);
+		List<BandoDTO> bandiDaEnte= ente.getBandiAppartenenti();
+		return bandiDaEnte;
+	}
 	
 	@GetMapping
 	public List<BandoDTO> getAllBandi(){
