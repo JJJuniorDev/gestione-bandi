@@ -12,6 +12,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -42,13 +43,17 @@ public class SecurityConfig {
         logger.info("Questo è un messaggio informativo.");
         http.cors(withDefaults()) // va bene così
         .csrf(csrf -> csrf.disable())
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler)) 
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/public/**").permitAll() // Queste richieste dovrebbero essere permesse
                             .anyRequest().authenticated()
             )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+       		.formLogin(form -> form.disable()) // <-- disattiva il redirect automatico su /login
+        	.httpBasic(AbstractHttpConfigurer::disable);
+        logger.info("ExceptionHandling entryPoint: " + unauthorizedHandler.getClass().getName());
+
 
         return http.build();
     }

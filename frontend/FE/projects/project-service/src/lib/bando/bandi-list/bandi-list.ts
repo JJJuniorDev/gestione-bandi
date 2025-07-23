@@ -23,14 +23,30 @@ export class BandiList implements OnInit{
     private candidaturaService: CandidaturaService
   ){}
 
-  ngOnInit() {
-    this.bandoService.getAllBandi().subscribe({
-      next: (bandi: BandoDTO[]) =>{
-        this.bandi.set(bandi);
-        console.log("BANDI (DOPO FETCH)", this.bandi);
-      }
-    })
+ ngOnInit() {
+  const token = sessionStorage.getItem('token');
+  if (!token) {
+    // magari reindirizzi al login o aspetti che il token sia disponibile
+    console.log("sono in ngOnInit di Bandi senza token")
+    this.router.navigate(['/login']);
+    return;
   }
+
+  this.loadBandi();
+}
+
+loadBandi() {
+  this.bandoService.getAllBandi().subscribe({
+    next: (bandi: BandoDTO[]) => {
+      this.bandi.set(bandi);
+      console.log("BANDI (DOPO FETCH)", this.bandi);
+    },
+    error: err => {
+      console.error('Errore nel fetch bandi:', err);
+    }
+  });
+}
+
 
    filteredBandi = computed(() => {
     const status = this.filterStatus();

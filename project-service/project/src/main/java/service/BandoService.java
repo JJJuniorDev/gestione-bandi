@@ -6,6 +6,8 @@ import mapper.CandidaturaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.jwt.token.JwtUtil;
+
 import Entity.Bando;
 import Entity.Candidatura;
 import config.CorsConfig;
@@ -15,6 +17,8 @@ import repository.BandoRepository;
 
 @Service
 public class BandoService {
+	
+	private final JwtUtil jwtUtil = null;
 
     private final CandidaturaMapper candidaturaMapper;
 

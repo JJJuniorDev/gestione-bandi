@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.jwt.token.JwtUtil;
 import com.gestionebandi.dto.UtentiDTO;
-import com.gestionebandi.security.JwtUtil;
 
 import xom.gestionebandi.service.LoginService;
 
