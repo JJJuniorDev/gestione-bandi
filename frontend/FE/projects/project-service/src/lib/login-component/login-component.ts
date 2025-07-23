@@ -40,8 +40,6 @@ export class LoginComponent {
     this.auth.login({ username, password }).subscribe({
       next: res => {
         sessionStorage.setItem('token', res.token); // Assicurati che il BE ritorni { token: string }
-        console.log('Login effettuato con successo!');
-        this.router.navigate(['/bandi']);
       },
       error: err => {
         console.error('Errore login:', err);
