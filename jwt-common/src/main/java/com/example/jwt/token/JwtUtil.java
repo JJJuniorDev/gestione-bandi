@@ -34,25 +34,23 @@ public class JwtUtil {
     }
     
     public String generateToken(String username, String role) {
-        SecretKey key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role) //  IL RUOLO
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMs()))
-                .signWith(key, SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
     
     public String generateToken(String username, String role, String enteId) {
-    	SecretKey key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
     	 return Jwts.builder()
     	            .setSubject(username)
     	            .claim("role", role)  // Ruolo utente
     	            .claim("ente_id", enteId)  // Nuovo claim per l'ID ente
     	            .setIssuedAt(new Date())
-    	            .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMs()))
-    	            .signWith(key, SignatureAlgorithm.HS256)
+    	            .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+    	            .signWith(getSigningKey(), SignatureAlgorithm.HS256)
     	            .compact();
     	}
     
