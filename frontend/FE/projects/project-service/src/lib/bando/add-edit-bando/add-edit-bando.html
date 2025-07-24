@@ -1,38 +1,38 @@
 <form [formGroup]="bandoForm" (ngSubmit)="onSubmit()">
-<mat-form-field>
+  <mat-form-field>
     <mat-label>Titolo</mat-label>
-    <input matInput formControlName="titolo" placeholder="Inserisci il titolo del progetto" required>
-</mat-form-field>
-<mat-form-field>
+    <input matInput formControlName="titolo" placeholder="Inserisci il titolo del progetto" required [readonly]="mode === 'show'">
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Descrizione</mat-label>
-    <input matInput formControlName="descrizione" placeholder="Inserisci una descrizione" required>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Data Inizio</mat-label>
-  <input matInput [matDatepicker]="pickerInizio" formControlName="dataInizio" placeholder="Scegli una data">
-  <mat-datepicker-toggle matSuffix [for]="pickerInizio"></mat-datepicker-toggle>
-  <mat-datepicker #pickerInizio></mat-datepicker>
-</mat-form-field>
-<mat-form-field>
+    <input matInput formControlName="descrizione" placeholder="Inserisci una descrizione" required [readonly]="mode === 'show'">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Data Inizio</mat-label>
+    <input matInput [matDatepicker]="pickerInizio" formControlName="dataInizio" placeholder="Scegli una data" [readonly]="mode === 'show'">
+    <mat-datepicker-toggle matSuffix [for]="pickerInizio" *ngIf="mode !== 'show'"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInizio></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Data Fine</mat-label>
-<input matInput [matDatepicker]="pickerFine" formControlName="dataFine" placeholder="Scegli una data" required>
- <mat-datepicker-toggle matSuffix [for]="pickerFine"></mat-datepicker-toggle>
-  <mat-datepicker #pickerFine></mat-datepicker>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Categoria</mat-label>
-  <mat-select formControlName="categoria" required>
-    <mat-option *ngFor="let categoria of categorie" [value]="categoria">
-      {{ categoria }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
+    <input matInput [matDatepicker]="pickerFine" formControlName="dataFine" placeholder="Scegli una data" required [readonly]="mode === 'show'">
+    <mat-datepicker-toggle matSuffix [for]="pickerFine" *ngIf="mode !== 'show'"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFine></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Categoria</mat-label>
+    <mat-select formControlName="categoria" required [disabled]="mode === 'show'">
+      <mat-option *ngFor="let categoria of categorie" [value]="categoria">
+        {{ categoria }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
     <mat-label>Aperto</mat-label>
-    <input matInput formControlName="aperto" placeholder="Aperto" required>
-</mat-form-field>
-<div class="actions">
-    <button mat-raised-button color="primary" type="submit" [disabled]="bandoForm.invalid">Salva</button>
+    <input matInput formControlName="aperto" placeholder="Aperto" required [readonly]="mode === 'show'">
+  </mat-form-field>
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="bandoForm.invalid" *ngIf="mode !== 'show'">Salva</button>
     <button mat-raised-button color="warn" type="button" (click)="onCancel()">Annulla</button>
-</div>
+  </div>
 </form>

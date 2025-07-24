@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class BandoService {
  
+ 
   
 private apiURL= environment.api.project;
 
@@ -31,4 +32,13 @@ private apiURL= environment.api.project;
   updateBando(id: string, result: BandoDTO): Observable<BandoDTO> {
     return this.http.put<BandoDTO>(`${this.apiURL}/bandi/${id}`, result);
   }
+
+    publicateBando(bandoId: string): Observable<BandoDTO> {
+    return this.http.put<BandoDTO>(`${this.apiURL}/bandi/${bandoId}/pubblica`, {});
+  }
+
+   validateBando(bandoId: string): Observable<BandoDTO>  {
+    return this.http.put<BandoDTO>(`${this.apiURL}/bandi/${bandoId}/valida`, {});
+  }
+
 }

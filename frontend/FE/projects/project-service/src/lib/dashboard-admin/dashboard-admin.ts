@@ -20,6 +20,7 @@ import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/sign
 })
 export class DashboardAdmin implements OnInit{
 
+
   constructor(public auth: AuthService,
     private dialog: MatDialog,
     private bandoService: BandoService,
@@ -63,7 +64,7 @@ ngOnInit() {
    
   creaBando() {
   const dialogRef= this.dialog.open(AddEditBando, {
-    width: '400px',
+    width: '600px',
     data: {mode: 'add'}
   });
   dialogRef.afterClosed().subscribe(result => {
@@ -80,7 +81,7 @@ this.toastr.success('Bando creato con successo!', 'Successo');
 
   modificaBando(bando: BandoDTO){
     const dialogRef=this.dialog.open(AddEditBando, {
-      width: '400px',
+      width: '600px',
       data: {mode: 'edit', bando: bando}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -98,4 +99,115 @@ this.toastr.success('Bando creato con successo!', 'Successo');
       }
     });
   }
+
+  pubblicaBando(bandoId: string) {
+this.bandoService.publicateBando(bandoId).subscribe({
+  next: (bando) => { 
+    if (bando){
+this.toastr.success('Bando pubblicato con successo!', 'Successo');
+this.reloadBandi();
+    }
+    
+}
+});
+}
+
+validaBando(bandoId: string) {
+this.bandoService.validateBando(bandoId).subscribe({
+  next: (bando) => {
+    if (bando) {
+      this.toastr.success('Bando validato con successo!', 'Successo');
+      this.reloadBandi();
+    }
+  }
+});
+}
+
+visualizzaBando(bando: BandoDTO) {
+ const dialogRef=this.dialog.open(AddEditBando, {
+      width: '600px',
+      data: {mode: 'show', bando: bando}
+    });
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      console.log("Visualizzazione bando:", result);
+      // Puoi gestire ulteriori azioni dopo la visualizzazione, se necessario
+    }
+  });
+}
+
+
+reloadBandi() {
+  // Ricarica i bandi dell'ente corrente
+  if (this.ente$ && this.ente$.id) {
+    this.bandoService.getBandiByEnte(this.ente$.id).subscribe({
+      next: bandi => {
+        this.bandi = bandi;
+        this.bandiFiltrati = [...bandi];
+        this.cdr.detectChanges();
+        console.log('Bandi ricaricati:', this.bandiFiltrati);
+      },
+      error: err => {
+        console.error('Errore durante il reload dei bandi:', err);
+        this.toastr.error('Errore durante il reload dei bandi', 'Errore');
+      }
+    });
+  }
+}
+
+gestisciCandidature(arg0: string) {
+throw new Error('Method not implemented.');
+}
+
+
+
+chiudiBando(arg0: string) {
+throw new Error('Method not implemented.');
+}
+isScaduto(bando: BandoDTO): any {
+if (bando.dataFine) {
+  const dataFine = new Date(bando.dataFine);
+  const oggi = new Date();
+  return dataFine < oggi;
+}
+return false;
+}
+
+
+
+
+
+
+
+
+
+  getStatoClass(stato: string): string {
+  switch (stato.toLowerCase()) {
+    case 'bozza':
+      return 'stato-bozza';
+    case 'validato':
+      return 'stato-validato';
+    case 'pubblicato':
+      return 'stato-pubblicato';
+    case 'chiuso':
+      return 'stato-chiuso';
+    default:
+      return 'stato-default';
+  }
+}
+
+getStatoIcon(stato: string): string {
+  switch (stato.toLowerCase()) {
+    case 'bozza':
+      return 'fa-pencil-alt';
+    case 'validato':
+      return 'fa-check-circle';
+    case 'pubblicato':
+      return 'fa-bullhorn';
+    case 'chiuso':
+      return 'fa-lock';
+    default:
+      return 'fa-info-circle';
+  }
+}
 }

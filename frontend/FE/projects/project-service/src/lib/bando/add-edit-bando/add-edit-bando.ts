@@ -18,7 +18,7 @@ import { CATEGORIE_BANDO } from '../../shared/categorie';
 })
 export class AddEditBando implements OnInit {
 
-  mode: 'add' | 'edit' | 'default' = 'default';
+  mode: 'add' | 'edit' | 'show' | 'default' = 'default';
   bandoForm: FormGroup;
   today: Date = new Date();
   categorie: string[] =CATEGORIE_BANDO;
@@ -33,6 +33,9 @@ export class AddEditBando implements OnInit {
     } else if (data.mode === 'edit') {
       this.mode = 'edit';
     }
+    else if (data.mode === 'show') {
+      this.mode = 'show';
+    }
      this.bandoForm= this.fb.group({
 
         titolo: ['', Validators.required],
@@ -41,7 +44,7 @@ export class AddEditBando implements OnInit {
         dataFine: [null, Validators.required],
         categoria: ['', Validators.required],
         aperto: [true, Validators.required],
-        candidature: [[]] // Assuming candidature is an array
+        candidature: [[]] 
       });
   }
      
@@ -58,6 +61,16 @@ export class AddEditBando implements OnInit {
         candidature: this.data.bando.candidature || []
       });
     }
+    if (this.mode === 'show' && this.data.bando) {
+       this.bandoForm = this.fb.group({
+    titolo: [{ value: this.data.bando?.titolo || '', disabled: this.mode === 'show' }],
+    descrizione: [{ value: this.data.bando?.descrizione || '', disabled: this.mode === 'show' }],
+    dataInizio: [{ value: this.data.bando?.dataInizio || '', disabled: this.mode === 'show' }],
+    dataFine: [{ value: this.data.bando?.dataFine || '', disabled: this.mode === 'show' }],
+    categoria: [{ value: this.data.bando?.categoria || '', disabled: this.mode === 'show' }],
+    aperto: [{ value: this.data.bando?.aperto || '', disabled: this.mode === 'show' }]
+  });
+}
     if (this.mode === 'add') {
       this.bandoForm.patchValue({
         dataInvio: this.today, // Set today's date for new candidatura

@@ -491,3 +491,43 @@ body {
 .bando-item {
   animation: fadeIn 0.3s ease-out forwards;
 }
+
+
+
+
+/* BANDO STATO BADGES */
+.bando-stato {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.bando-stato i {
+  margin-right: 6px;
+}
+
+.stato-bozza {
+  background-color: #ffc107; /* giallo */
+}
+
+.stato-validato {
+  background-color: #17a2b8; /* azzurro */
+}
+
+.stato-pubblicato {
+  background-color: #28a745; /* verde */
+}
+
+.stato-chiuso {
+  background-color: #dc3545; /* rosso */
+}
+
+.stato-default {
+  background-color: #6c757d; /* grigio */
+}
