@@ -32,10 +32,12 @@ export class AuthService {
  private roleSubject = new BehaviorSubject<string | null>(null);
   private usernameSubject = new BehaviorSubject<string | null>(null);
   private enteIdSubject = new BehaviorSubject<string | null>(null);
+  private userIdSubject = new BehaviorSubject<string | null>(null);
    role$ = this.roleSubject.asObservable();
   username$ = this.usernameSubject.asObservable();
   enteId$= this.enteIdSubject.asObservable();
-  
+  userId$ = this.userIdSubject.asObservable();
+
   constructor(private http: HttpClient,
     private router: Router
   ) {
@@ -88,6 +90,8 @@ export class AuthService {
      console.log('RUOLO:', decoded.role);
     this.roleSubject.next(decoded.role);
     this.usernameSubject.next(decoded.sub);
+     this.userIdSubject.next(decoded.sub); // ✅ usiamo sub come userId
+     console.log('User ID:', decoded.sub);
     this.enteIdSubject.next(decoded.ente_id || null);
     console.log('Username:', decoded.sub);
     console.log('Ente ID:', decoded.ente_id);

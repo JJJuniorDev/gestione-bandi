@@ -1,5 +1,5 @@
 <div class="candidature-container">
-  <h2>Le Mie Candidature</h2>
+  <h2>Lista di candidature</h2>
   
   <ul>
     @for (candidatura of candidature(); track candidatura.id) {
@@ -11,11 +11,18 @@
         <span class="status status-{{candidatura.status}}">
           {{ candidatura.status }}
         </span>
+
+         <!-- Comandi visibili solo per ADMIN -->
+        <div *ngIf="role === 'ADMIN'" class="admin-actions">
+          <button (click)="valutaCandidatura(candidatura.id, 'APPROVATA')">Approva</button>
+          <button (click)="valutaCandidatura(candidatura.id, 'RIFIUTATA')">Rifiuta</button>
+        </div>
       </li>
     } @empty {
       <li>Nessuna candidatura trovata.</li>
     }  
   </ul>
   
-  <button (click)="addProject()">Aggiungi Candidatura</button>
+  <!--  Bottone per aggiungere candidatura visibile solo a USER -->
+  <button *ngIf="role === 'USER'" (click)="addProject()">Aggiungi Candidatura</button>
 </div>

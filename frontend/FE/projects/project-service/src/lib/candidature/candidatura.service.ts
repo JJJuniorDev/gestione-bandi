@@ -6,6 +6,7 @@ import { environment } from '../../../../../src/environments/environment'; // Ad
 @Injectable({providedIn: 'root'})
 export class CandidaturaService {
 
+
 private apiURL= environment.api.project;
 
 constructor(private http: HttpClient) {}
@@ -23,4 +24,7 @@ createCandidatura(project: CandidaturaDTO, bandoId?: string) {
 return this.http.post<CandidaturaDTO>(`${this.apiURL}/candidature`, project);
 }
 
+getCandidatureByBandoId(bandoId: string) {
+  return this.http.get<CandidaturaDTO[]>(`${this.apiURL}/candidature/bando/${bandoId}`);
+}
 }

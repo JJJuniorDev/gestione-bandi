@@ -1,5 +1,6 @@
 
-<div *ngIf="(auth.role$ | async) === 'ADMIN' || (auth.role$ | async) === 'AMMINISTRATORE'">
+<div *ngIf="auth.role$ | async as role">
+  <div *ngIf="role === 'ADMIN' || role === 'AMMINISTRATORE'">
 <div class="dashboard-admin">
   <!-- Header con info utente e logout -->
   <header class="dashboard-header">
@@ -76,7 +77,7 @@
 
   <!-- Lista bandi con azioni contestuali -->
   <div class="lista-bandi">
-    <div class="bando-item" *ngFor="let bando of bandiFiltrati"> <!-- -->
+    <div class="bando-item" *ngFor="let bando of bandiPaginati"> <!-- -->
       <div class="bando-header">
         <h3> {{bando.titolo}} </h3>
         <!-- Badge per stato -->
@@ -114,7 +115,7 @@
         </button>
         
         <button *ngIf="bando.stato === 'PUBBLICATO'" (click)="gestisciCandidature(bando.id)"><!-- -->
-          <i class="fas fa-users"></i> Candidature ( bando.candidature )
+          <i class="fas fa-users"></i> Candidature ({{bando.candidature.length}}  )
         </button>
         
         <button *ngIf="bando.stato === 'PUBBLICATO' && isScaduto(bando)" 
@@ -128,5 +129,11 @@
       </div>
     </div>
   </div>
+  <mat-paginator
+  [length]="length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[2,3,5, 10, 20]"
+  (page)="onPageChange($event)">
+</mat-paginator>
 </div>
 </div>

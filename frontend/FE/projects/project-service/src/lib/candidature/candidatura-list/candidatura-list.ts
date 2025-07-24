@@ -4,6 +4,9 @@ import { CandidaturaDTO } from '../../models/candidaturaDTO.model';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditCandidatura } from '../add-edit-candidatura/add-edit-candidatura';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../auth-service';
+import { RowOutlet } from '@angular/cdk/table';
 
 @Component({
   selector: 'lib-project-list',
@@ -12,39 +15,54 @@ import { AddEditCandidatura } from '../add-edit-candidatura/add-edit-candidatura
   styleUrls: ['./candidatura-list.css']
 })
 export class CandidaturaList implements OnInit{
+
   
   constructor(private candidaturaService: CandidaturaService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private auth: AuthService
   ){}
   
   //SE QUI NON USO SIGNAL NON FUNZIONA L'AGGIORNAMENTO DELLA LISTA
   candidature= signal<CandidaturaDTO[]>([]);
-  private role:string="";
+   role:string="";
   private userId:string="1";
 
+
   ngOnInit() {
-    // if (this.role === "ADMIN") {
-    if(this.role===""){
-    console.log("SIAMO QUI");
-   this.candidaturaService.getAllCandidature().subscribe({
-      next: (projects: CandidaturaDTO[]) => {
-        this.candidature.set(projects);
-         console.log("PROJECTS (DOPO FETCH)", this.candidature); 
-      },
-      error: (error) => {
-        console.error('Error fetching projects:', error);
+    this.auth.role$.subscribe(role => { 
+       this.role = role!;  // Memorizza il ruolo
+      switch(role) {
+        case 'ADMIN':
+const bandoId = this.route.snapshot.paramMap.get('bandoId');
+     if (bandoId) {
+      this.candidaturaService.getCandidatureByBandoId(bandoId).subscribe({
+        next: (data) => this.candidature.set(data),
+        error: (err) => console.error('Errore caricamento candidature:', err)
+      });
+    }
+    break;
+        case 'USER':
+          this.auth.userId$.subscribe(userId => {
+            if (userId) {
+              this.userId = userId;
+              this.candidaturaService.getCandidatureByUserId(this.userId).subscribe({
+                next: (data) => this.candidature.set(data),
+                error: (err) => console.error('Errore caricamento candidature:', err)
+              });
+            }
+          });
+          break;        
+        default:
+          console.error('Ruolo non gestito:', role);
+          break;
       }
-   });
-  }
-  else {
-    this.candidaturaService.getCandidatureByUserId(this.userId).subscribe({
-      next: (candidature: CandidaturaDTO[]) => {
-        this.candidature.set(candidature);
-        console.log("PROJECTS BY ID", this.candidature);
-      }
+      
+      console.log("Ruolo dell'utente:", this.role);
     });
   }
-}
+    
+  
 
 addProject(){
 const dialogRef= this.dialog.open(AddEditCandidatura, {
@@ -62,6 +80,10 @@ dialogRef.afterClosed().subscribe(result => {
     }
 })
   }
+
+  valutaCandidatura(arg0: string,arg1: string) {
+throw new Error('Method not implemented.');
+}
 }
 
 

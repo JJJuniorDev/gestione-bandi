@@ -6,6 +6,10 @@ export const CANDIDATURE_ROUTES = [
         component: CandidaturaList,
     },
     {
+        path: 'bando/:bandoId',
+        component: CandidaturaList,
+    },
+    {
         path: 'user/:userId',
         component: CandidaturaList,
     }

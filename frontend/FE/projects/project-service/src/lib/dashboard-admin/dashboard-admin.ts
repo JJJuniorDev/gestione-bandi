@@ -11,10 +11,12 @@ import { EnteDTO } from '../models/enteDTO.model';
 import { EnteService } from '../ente/ente-service';
 import { filter, switchMap, take } from 'rxjs';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { Router } from '@angular/router';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'lib-dashboard-admin',
-  imports: [CommonModule,],
+  imports: [CommonModule, MatPaginatorModule],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.css'
 })
@@ -26,9 +28,17 @@ export class DashboardAdmin implements OnInit{
     private bandoService: BandoService,
     private toastr: ToastrService,
     private enteService: EnteService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ){}
   
+  pageSize = 5; // bandi per pagina
+pageIndex = 0; 
+length = 0; // totale bandi
+  pageSizeOptions = [2, 3, 5, 10, 20]; 
+bandiPaginati: BandoDTO[] = [];
+
+
    bandi: BandoDTO[] = [];
   categorie$= CATEGORIE_BANDO;
    bandiFiltrati: BandoDTO[] = [];
@@ -52,7 +62,9 @@ ngOnInit() {
   ).subscribe({
     next: bandi => {
       this.bandi = bandi;
-      this.bandiFiltrati = [...bandi];
+      this.bandiFiltrati = [...bandi]; // inizializza i filtrati con tutti i bandi
+      this.length = this.bandiFiltrati.length;
+      this.updatePagination();
       this.cdr.detectChanges();
       console.log('Bandi filtrati:', this.bandiFiltrati);
     },
@@ -61,7 +73,20 @@ ngOnInit() {
     }
   });
 }
+
+updatePagination() {
+  this.length = this.bandiFiltrati.length;
+  const start = this.pageIndex * this.pageSize;
+  const end = start + this.pageSize;
+  this.bandiPaginati = this.bandiFiltrati.slice(start, end);
+}
    
+onPageChange(event: PageEvent) {
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.updatePagination();
+}
+
   creaBando() {
   const dialogRef= this.dialog.open(AddEditBando, {
     width: '600px',
@@ -144,6 +169,7 @@ reloadBandi() {
       next: bandi => {
         this.bandi = bandi;
         this.bandiFiltrati = [...bandi];
+        this.updatePagination();
         this.cdr.detectChanges();
         console.log('Bandi ricaricati:', this.bandiFiltrati);
       },
@@ -155,8 +181,8 @@ reloadBandi() {
   }
 }
 
-gestisciCandidature(arg0: string) {
-throw new Error('Method not implemented.');
+gestisciCandidature(bandoId: string) {
+this.router.navigate(['/candidature/bando', bandoId]);
 }
 
 
