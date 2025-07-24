@@ -7,22 +7,28 @@ import { BandoDTO } from '../../models/bandoDTO.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';   
+import { CandidaturaUserForm } from '../../candidature/candidatura-user-form/candidatura-user-form';
 
 @Component({
   selector: 'lib-ente-item',
-  imports: [DatePipe, MatIconModule, MatButtonModule],
+  standalone: true,
+  imports: [DatePipe, MatIconModule, MatButtonModule, RouterLink, CandidaturaUserForm],
   templateUrl: './ente-item.html',
   styleUrl: './ente-item.css'
 })
 export class EnteItem implements OnInit{
+  
 
   ente= signal<EnteDTO | null>(null);
   enteId= signal<string | null>(null);
 
+
   constructor(private enteService: EnteService,
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog
   ){}
 
   ngOnInit() {
@@ -53,7 +59,18 @@ console.log('ID ente dalla route:', id);
 
 
 
-  candidati(bando: BandoDTO){
-    this.router.navigate(['/candidature', bando.id]);
+openCandidaturaForm(bando: any) {
+    const dialogRef = this.dialog.open(CandidaturaUserForm, {
+      width: '500px',
+      data: { bando }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        console.log('Candidatura inviata:', result);
+      }
+    });
   }
+
+
 }

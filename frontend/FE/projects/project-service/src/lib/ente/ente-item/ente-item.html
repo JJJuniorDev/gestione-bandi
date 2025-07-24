@@ -19,9 +19,7 @@
             <p class="card-date"><strong>Data Fine:</strong> {{ bando.dataFine | date:'dd/MM/yyyy' }}</p>
             <p class="card-description">{{ bando.descrizione }}</p>
             @if (bando.aperto) {
-                <button mat-fab aria-label="Partecipa" (click)="candidati(bando)">
-Partecipa
-</button>
+                <button mat-fab aria-label="Partecipa" (click)="openCandidaturaForm(bando)">Partecipa</button>
                 } @else {
                 <span class="btn btn-secondary" disabled>Scaduto</span>
             }
