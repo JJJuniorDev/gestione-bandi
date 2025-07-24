@@ -95,7 +95,8 @@
           <i class="fas fa-eye"></i> Dettagli
         </button>
         
-        <button > <!--*ngIf="bando.stato === 'bozza' && isAdmin()" (click)="modificaBando(bando.id)" -->
+        <!-- POSSO MODIFICARE SOLO I BANDI IN STATO BOZZA(?)-->
+        <button *ngIf="bando.stato === 'bozza'" (click)="modificaBando(bando)"> 
           <i class="fas fa-edit"></i> Modifica
         </button>
         

@@ -10,6 +10,7 @@ import { BandoDTO } from '../models/bandoDTO.model';
 import { EnteDTO } from '../models/enteDTO.model';
 import { EnteService } from '../ente/ente-service';
 import { filter, switchMap, take } from 'rxjs';
+import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
 
 @Component({
   selector: 'lib-dashboard-admin',
@@ -31,7 +32,7 @@ export class DashboardAdmin implements OnInit{
   categorie$= CATEGORIE_BANDO;
    bandiFiltrati: BandoDTO[] = [];
    ente$?: EnteDTO= undefined;
-
+   
 ngOnInit() {
   this.auth.enteId$.pipe(
     take(1), // Prende il primo valore e completa l'osservabile
@@ -75,5 +76,26 @@ this.toastr.success('Bando creato con successo!', 'Successo');
   });
   }
   });
+  }
+
+  modificaBando(bando: BandoDTO){
+    const dialogRef=this.dialog.open(AddEditBando, {
+      width: '400px',
+      data: {mode: 'edit', bando: bando}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.bandoService.updateBando(bando.id, result).subscribe({
+          next: (updatedBando) => {
+            console.log("BANDO AGGIORNATO", updatedBando);
+            this.toastr.success('Bando aggiornato con successo!', 'Successo');
+          },
+          error: (error) => {
+            console.error("Errore durante l'aggiornamento del bando", error);
+            this.toastr.error('Errore durante l\'aggiornamento del bando', 'Errore');
+          }
+        });
+      }
+    });
   }
 }

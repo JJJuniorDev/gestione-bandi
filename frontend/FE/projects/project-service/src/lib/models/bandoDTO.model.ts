@@ -9,6 +9,7 @@ export class BandoDTO {
     public dataFine: Date,
     public categoria: string,
     public aperto: boolean,
+    public stato: string,
     public candidature: CandidaturaDTO[]
   ) {}
 }

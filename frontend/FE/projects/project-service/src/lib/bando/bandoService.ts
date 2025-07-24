@@ -8,10 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BandoService {
-  
-  createBando(result: BandoDTO): Observable<BandoDTO> {
-    return this.http.post<BandoDTO>(`${this.apiURL}/bandi/new`, result);
-  }
+ 
   
 private apiURL= environment.api.project;
 
@@ -24,5 +21,14 @@ private apiURL= environment.api.project;
 
   getBandiByEnte(enteId: string): Observable<BandoDTO[]> {
     return this.http.get<BandoDTO[]>(`${this.apiURL}/bandi/ente/${enteId}`);
+  }
+
+   
+  createBando(result: BandoDTO): Observable<BandoDTO> {
+    return this.http.post<BandoDTO>(`${this.apiURL}/bandi/new`, result);
+  }
+
+  updateBando(id: string, result: BandoDTO): Observable<BandoDTO> {
+    return this.http.put<BandoDTO>(`${this.apiURL}/bandi/${id}`, result);
   }
 }
