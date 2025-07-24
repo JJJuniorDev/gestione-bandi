@@ -12,4 +12,5 @@ public interface CandidaturaRepository extends JpaRepository<Candidatura, Long>{
 	
 	 @Transactional
 Optional<List<Candidatura>> findAllByUserId(Long id);
+	 List<Candidatura> findByBando_Id(Long bandoId);
 }

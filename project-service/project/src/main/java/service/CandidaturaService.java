@@ -64,5 +64,12 @@ public class CandidaturaService {
 		candidaturaRepo.save(candidaturaDTOtoEntity);
 		return candidaturaDTO;
 	}
-	
+
+	public List<CandidaturaDTO> getCandidatureByBandoId(String bandoId) {
+		Long id= Long.valueOf(bandoId);
+		List<Candidatura>candidature= candidaturaRepo.findByBando_Id(id);
+		List<CandidaturaDTO> candidatureToDto= candidature.stream().map(candidatura -> mapper.toDTO(candidatura)).collect(Collectors.toList());
+	return candidatureToDto;
+	}
 }
+

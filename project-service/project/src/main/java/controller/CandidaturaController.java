@@ -43,5 +43,8 @@ public class CandidaturaController {
 		return candidaturaServ.getCandidatureByUserId(userId);
 	}
 	
-	
+	@GetMapping("/bando/{bandoId}")
+	public List<CandidaturaDTO> getCandidatureByBandoId(@PathVariable String bandoId){
+		return candidaturaServ.getCandidatureByBandoId(bandoId);
+	}
 }
