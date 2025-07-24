@@ -18,6 +18,7 @@ public class BandoMapper {
 	    dto.setDataInizio(bando.getDataInizio());
 	    dto.setDataFine(bando.getDataFine());
 	    dto.setAperto(bando.isAperto());
+	    dto.setStato(bando.getStato());
 	    return dto;
 	}
 	
@@ -31,6 +32,7 @@ public class BandoMapper {
 	    bando.setAperto(bandoDTO.isAperto());
 	    bando.setDataInizio(bandoDTO.getDataInizio());
 	    bando.setDataFine(bandoDTO.getDataFine());
+	    bando.setStato(bandoDTO.getStato());
 	    return bando;
 	}
 }
