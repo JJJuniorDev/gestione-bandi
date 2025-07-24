@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,7 +58,19 @@ public class BandoController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<BandoDTO> updateBando(@RequestBody BandoDTO bando){
-		BandoDTO updated= this.bandoService.updateBando(bando);
+ 		BandoDTO updated= this.bandoService.updateBando(bando);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(updated);
+	}
+	
+	@PutMapping("/{bandoId}/pubblica")
+	public ResponseEntity <BandoDTO> publicateBando(@PathVariable String bandoId){
+		BandoDTO publicated= this.bandoService.publicateBando(bandoId);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(publicated);
+	}
+	
+	@PutMapping("/{bandoId}/valida")
+	public ResponseEntity<BandoDTO> validateBando(@PathVariable String bandoId){
+		BandoDTO validated=this.bandoService.validateBando(bandoId);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(validated);
 	}
 }

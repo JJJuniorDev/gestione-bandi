@@ -16,6 +16,7 @@ import Entity.Bando;
 import Entity.Candidatura;
 import Entity.Ente;
 import config.CorsConfig;
+import config.SecurityConfig;
 import dto.BandoDTO;
 import jakarta.persistence.EntityManager;
 import mapper.BandoMapper;
@@ -23,6 +24,8 @@ import repository.BandoRepository;
 
 @Service
 public class BandoService {
+
+    private final SecurityConfig securityConfig;
 	
 	private final JwtUtil jwtUtil = null;
 
@@ -42,9 +45,10 @@ public class BandoService {
 	@Autowired
 	private EntityManager entityManager;
 	
-    BandoService(CorsConfig corsConfig, CandidaturaMapper candidaturaMapper) {
+    BandoService(CorsConfig corsConfig, CandidaturaMapper candidaturaMapper, SecurityConfig securityConfig) {
         this.corsConfig = corsConfig;
         this.candidaturaMapper = candidaturaMapper;
+        this.securityConfig = securityConfig;
     }
 	
 	public List<BandoDTO> getAllBandi(){
@@ -103,5 +107,32 @@ public class BandoService {
 		//bandoEntity.setQuotaContributo(bando.getQuotaContributo());
 		Bando updated=bandoRepository.save(bandoEntity);
 		return bandoMapper.toDTO(updated);
+	}
+
+	public BandoDTO publicateBando(String bandoId) {
+		Long bandoIdLong= Long.valueOf(bandoId);
+		Optional <Bando> bandoOpt=bandoRepository.findById(bandoIdLong);
+		if (bandoOpt.isEmpty()) {
+			throw new NoSuchElementException("Bando non trovato");
+		}
+		Bando bando= bandoOpt.get();
+		bando.setStato("PUBBLICATO");
+	Bando saved=bandoRepository.save(bando);
+	BandoDTO bandoDTO=bandoMapper.toDTO(saved);
+	return bandoDTO;
+		
+	}
+
+	public BandoDTO validateBando(String bandoId) {
+		Long bandoIdLong= Long.valueOf(bandoId);
+		Optional <Bando> bandoOpt=bandoRepository.findById(bandoIdLong);
+		if (bandoOpt.isEmpty()) {
+			throw new NoSuchElementException("Bando non trovato");
+		}
+		Bando bando= bandoOpt.get();
+		bando.setStato("VALIDATO");
+		Bando validated=bandoRepository.save(bando);
+		BandoDTO bandoDTO=bandoMapper.toDTO(validated);
+		return bandoDTO;
 	}
 }
