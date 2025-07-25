@@ -1,4 +1,9 @@
 
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+ 
+
   :host {
     display: block;
     max-width: 1200px;
@@ -76,30 +81,7 @@
     align-self: flex-start;
   }
 
-  button {
-    display: block;
-    margin: 0 auto;
-    padding: 0.8rem 2rem;
-    background: linear-gradient(to right, #3498db, #2ecc71);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-  }
-
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-  }
-
-  button:active {
-    transform: translateY(0);
-  }
-
+  
   /* Stili per gli stati delle candidature */
   .status-inviata {
     background-color: #f39c12;
@@ -131,3 +113,32 @@
     background: #f8f9fa;
     border-radius: 10px;
   }
+
+  .btn {
+  display: inline-block;
+  padding: 0.55rem 1.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+  box-shadow: 0 4px 8px rgb(37 99 235 / 0.4);
+}
+
+.btn-danger {
+  margin-left: 20px;
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-details {
+  margin-right: 20px;
+  background-color: #95e4f1;
+}

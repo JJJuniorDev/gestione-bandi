@@ -53,7 +53,7 @@
   <div class="filtri-bandi">
     <div class="filter-group">
       <label>Stato:</label>
-      <select > <!--(change)="filtraPerStato($event)" -->
+      <select (change)="filtraPerStato($event)"> <!-- -->
         <option value="tutti">Tutti</option>
         <option value="bozza">Bozza</option>
         <option value="validato">Validato</option>
@@ -64,7 +64,7 @@
  
     <div class="filter-group">
       <label>Categoria:</label>
-      <select > <!--(change)="filtraPerCategoria($event)" -->
+      <select (change)="filtraPerCategoria($event)"> <!-- -->
         <option value="tutte">Tutte</option>
         <option *ngFor="let cat of categorie$" >{{cat}}  </option> <!-- -->
       </select>
@@ -132,7 +132,7 @@
   <mat-paginator
   [length]="length"
   [pageSize]="pageSize"
-  [pageSizeOptions]="[2,3,5, 10, 20]"
+  [pageSizeOptions]="[2, 3, 5, 10, 20]"
   (page)="onPageChange($event)">
 </mat-paginator>
 </div>

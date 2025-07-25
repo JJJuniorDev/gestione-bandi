@@ -1,0 +1,16 @@
+<mat-card class="candidatura-dialog">
+  <mat-card-header>
+    <mat-card-title>Dettagli Candidatura</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <p><strong>Titolo:</strong> {{ data.candidatura.title }}</p>
+    <p><strong>Descrizione:</strong> {{ data.candidatura.description }}</p>
+    <p><strong>Data Invio:</strong> {{ data.candidatura.dataInvio | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Status:</strong> {{ data.candidatura.status }}</p>
+    <p><strong>User ID:</strong> {{ data.candidatura.userId }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="closeDialog()">Chiudi</button>
+  </mat-card-actions>
+</mat-card>

@@ -23,6 +23,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class DashboardAdmin implements OnInit{
 
 
+
   constructor(public auth: AuthService,
     private dialog: MatDialog,
     private bandoService: BandoService,
@@ -37,7 +38,8 @@ pageIndex = 0;
 length = 0; // totale bandi
   pageSizeOptions = [2, 3, 5, 10, 20]; 
 bandiPaginati: BandoDTO[] = [];
-
+selectedStato: string = 'tutti';
+selectedCategoria: string = 'tutte';
 
    bandi: BandoDTO[] = [];
   categorie$= CATEGORIE_BANDO;
@@ -199,8 +201,25 @@ if (bando.dataFine) {
 return false;
 }
 
+filtraPerStato($event: Event) {
+  this.selectedStato = ($event.target as HTMLSelectElement).value;
+  this.applicaFiltri();
+}
 
+filtraPerCategoria($event: Event) {
+  this.selectedCategoria = ($event.target as HTMLSelectElement).value;
+  this.applicaFiltri();
+}
 
+applicaFiltri() {
+  this.bandiFiltrati = this.bandi.filter(b => {
+    const statoMatch = this.selectedStato === 'tutti' || (b.stato?.toLowerCase() === this.selectedStato.toLowerCase());
+    const categoriaMatch = this.selectedCategoria === 'tutte' || (b.categoria?.toLowerCase() === this.selectedCategoria.toLowerCase());
+    return statoMatch && categoriaMatch;
+  });
+  this.pageIndex = 0;
+  this.updatePagination();
+}
 
 
 
